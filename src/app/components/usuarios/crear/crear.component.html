@@ -1,0 +1,55 @@
+<div class="formUsuarios">
+    <h1 mat-dialog-title>Agregar | Modificar Usuarios</h1>
+    <div mat-dialog-content>
+
+        <mat-form-field>
+            <mat-label>Carnet de Identidad</mat-label>
+            <input matInput [(ngModel)]="data.ci">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Nombre</mat-label>
+            <input matInput [(ngModel)]="data.nombre">
+        </mat-form-field>
+        
+        <mat-form-field>
+            <mat-label>Apellido</mat-label>
+            <input matInput [(ngModel)]="data.apellido">
+        </mat-form-field>
+        
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput [(ngModel)]="data.email">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input matInput [(ngModel)]="data.password">
+        </mat-form-field>
+        
+  
+        <mat-form-field>
+            <mat-label>Rol</mat-label>
+            <mat-select [(ngModel)]="data.rol">
+              <mat-option *ngFor="let rol of roles" [value]="rol.nombre">{{ rol.nombre }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+
+        <mat-form-field>
+            <mat-label>Sexo</mat-label>
+            <mat-select [(ngModel)]="data.sexo">
+                <mat-option *ngFor="let sexo of sexos" [value]="sexo.value">
+                    {{sexo.viewValue}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        
+
+
+
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="saveData()" class="button-save">Guardar</button>
+    </div>
+</div>

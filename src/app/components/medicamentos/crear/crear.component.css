@@ -1,0 +1,14 @@
+.mat-mdc-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+.formMedicamentos {
+    margin: 2em;
+}
+.button-save{
+    background-color: #5A4DDE;
+    color: white !important;
+    font-size: 1em; /* Ajusta el tamaño de la fuente del texto del botón */
+    padding: 1em 1em;
+  
+}

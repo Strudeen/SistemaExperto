@@ -1,0 +1,48 @@
+<div class="formMedicamentos">
+    <h1 mat-dialog-title>Agregar | Modificar Medicamentos</h1>
+    <div mat-dialog-content>
+
+        <mat-form-field>
+            <mat-label>Código</mat-label>
+            <input matInput [(ngModel)]="data.codigo">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Nombre</mat-label>
+            <input matInput [(ngModel)]="data.nombre">
+        </mat-form-field>
+        
+        <mat-form-field>
+            <mat-label>Descripcion</mat-label>
+            <input matInput [(ngModel)]="data.descripcion">
+        </mat-form-field>
+        
+      
+           
+        
+            <mat-form-field>
+                <mat-label>Tipo medicamento</mat-label>
+                <mat-select [(ngModel)]="data.tipo">
+                    <mat-option *ngFor="let tipo of tipos" [value]="tipo.value">
+                        {{tipo.viewValue}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            
+        
+       
+
+        <mat-form-field>
+            <mat-label>Exclusividad</mat-label>
+            <mat-select [(ngModel)]="data.exclusividad">
+                <mat-option *ngFor="let exclusividad of exclusividades" [value]="exclusividad.value" >
+                    {{exclusividad.viewValue}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="saveData()" class="button-save">Guardar</button>
+    </div>
+</div>

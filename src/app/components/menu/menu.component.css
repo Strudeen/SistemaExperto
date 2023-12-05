@@ -1,0 +1,41 @@
+.spacer {
+    flex: 1 1 auto;
+}
+
+mat-sidenav-container{
+    height: 100%;
+}
+
+mat-sidenav{
+    width: 18rem;
+    border: none;
+    background-image: linear-gradient(to bottom, #0d2764, #162361, #1d1f5d, #231b59, #271655, #2a1352, #2d1050, #300d4d, #330b4b, #350a49, #380847, #3a0745);
+}
+
+.sidenav-header{
+    height: 4rem;
+    color: white;
+    background-color: #3f51b5;
+    display: flex;
+    align-items: center;
+}
+
+.sidenav-header h2{
+   padding-left:3rem;
+   
+}
+
+mat-list-item{
+   max-width: 16rem;
+   margin-left: 1rem;
+}
+
+mat-list-item:hover{
+    background-color: rgb(74,90,136);
+    border-radius: .3em;
+    border:.1em solid rgb(135,144,175);
+}
+.white{
+    color:#fff !important;
+    text-decoration: none !important;
+}

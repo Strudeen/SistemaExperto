@@ -1,0 +1,55 @@
+table {
+    width: 100%;
+  }
+  
+  .mat-mdc-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  td, th {
+    width: 25%;
+  }
+
+.auxB{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.listarPacientes-container{
+    margin: 2em;
+    display: flex;
+    flex-direction: column;
+}
+.btnAddItem{
+    max-width: 15em;
+    margin-bottom: 1em;
+}
+.formbtn{
+    flex-grow: 1;
+    flex-basis: 0;
+}
+
+.red {
+  color: rgb(244,106,106);
+}
+
+.green {
+  color: rgb(100,195,155);
+}
+
+.edit{
+  background-color: #5A4DDE;
+  transform: scale(0.8);
+  color:white;
+}
+.delete{
+  background-color:#FD3D83;
+  transform: scale(0.8);
+  color:white;
+}
+
+.flex{
+  display: flex;
+}

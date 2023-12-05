@@ -1,0 +1,14 @@
+<div class="formMedicamentos">
+    <h1 mat-dialog-title>Agregar | Modificar Inventario</h1>
+    <div mat-dialog-content>
+
+        <mat-form-field>
+            <mat-label>Código</mat-label>
+            <input matInput [(ngModel)]="data.codigoMedicamento">
+        </mat-form-field>               
+
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="saveData()" class="button-save">Guardar</button>
+    </div>
+</div>

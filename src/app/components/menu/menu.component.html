@@ -1,0 +1,92 @@
+<mat-sidenav-container>
+    <mat-sidenav [(opened)]='opened' mode="side">
+        <mat-list>
+            <mat-list-item routerLinkActive="activebutton">
+                <mat-icon matListItemIcon class="white">account_circle</mat-icon>
+                <span matListItemLine class="white"> Joel Hugo</span>
+                <span matListItemLine class="white"> Huayhua Hinojosa</span>
+            </mat-list-item>
+
+            <mat-list-item routerLinkActive="activebutton">
+                <mat-icon matListItemIcon class="white">local_hospital</mat-icon>
+                <a matListItemLine class="white" routerLink="/">Inicio</a>
+            </mat-list-item>
+
+            <mat-list-item>
+                <mat-icon matListItemIcon class="white">document_scanner</mat-icon>
+                <a matListItemLine class="white" (click)="navigateTo('/archivos')">Compras</a>
+            </mat-list-item>
+
+            <mat-list-item>
+                <mat-icon matListItemIcon class="white">store</mat-icon>
+                <a matListItemLine class="white" (click)="navigateTo('almacen')">Almacen</a>
+            </mat-list-item>
+
+            <mat-list-item>
+                <mat-icon matListItemIcon class="white">playlist_add_check</mat-icon>
+                <a matListItemLine class="white" (click)="navigateTo('almacen')">Pedidos</a>
+            </mat-list-item>
+
+            <mat-list-item>
+                <mat-icon matListItemIcon class="white">inventory</mat-icon>
+                <a matListItemLine class="white" (click)="navigateTo('inventario')">Inventario</a>
+            </mat-list-item>
+
+            <mat-list-item>
+                <mat-icon matListItemIcon class="white">vaccines</mat-icon>
+                <a matListItemLine class="white" (click)="navigateTo('medicamentos')">Medicamentos</a>
+            </mat-list-item>
+
+            <mat-list-item>
+                <mat-icon matListItemIcon class="white">science</mat-icon>
+                <a matListItemLine class="white" (click)="navigateTo('laboratorios')">Laboratorios</a>
+            </mat-list-item>
+
+
+            <mat-list-item>
+                <mat-icon matListItemIcon class="white">wc</mat-icon>
+                <a matListItemLine class="white" (click)="navigateTo('pacientes')">Pacientes</a>
+            </mat-list-item>
+
+
+            <mat-list-item>
+                <mat-icon matListItemIcon class="white">description</mat-icon>
+                <a matListItemLine class="white" routerLink="/items/laboratorios">Recetas</a>
+            </mat-list-item>
+
+          
+            <mat-list-item>
+                <mat-icon matListItemIcon class="white">people_alt</mat-icon>
+                <a matListItemLine class="white" (click)="navigateTo('usuarios')">Usuarios</a>
+            </mat-list-item>
+
+
+            <mat-list-item>
+                <mat-icon matListItemIcon class="white">groups</mat-icon>
+                <a matListItemLine class="white" (click)="navigateTo('roles')">Roles</a>
+            </mat-list-item>
+
+
+       
+
+        </mat-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar>
+            <button mat-icon-button class="example-icon" (click)="opened=!opened">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <span></span>
+            <span class="spacer"></span>
+            <!--<button mat-icon-button>
+              <mat-icon>search</mat-icon>
+            </button>-->
+            <button mat-icon-button>
+
+                <mat-icon>logout</mat-icon>
+
+            </button>
+        </mat-toolbar>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

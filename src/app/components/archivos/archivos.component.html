@@ -1,0 +1,18 @@
+<input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+
+<div class="main">
+  <div class="file-upload">
+
+    {{fileName || "No se ha subido ningun archivo"}}
+
+    <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+      <mat-icon>attach_file</mat-icon>
+    </button>
+    <button class="button" mat-stroked-button color="primary" (click)="onFileSaved()">OCR Test</button>
+  </div>
+  <img [src]="image">
+  <div class="texto">
+    {{texto}}
+  </div>
+  
+</div>
