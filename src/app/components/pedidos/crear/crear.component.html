@@ -1,0 +1,59 @@
+<div class="formUsuarios">
+    <h1 mat-dialog-title>Realizar | Gestionar Pedidos</h1>
+    <div mat-dialog-content>
+
+        <!-- <mat-form-field>
+            <mat-label>Tipo Receta</mat-label>
+            <input matInput [(ngModel)]="data.medicamentos">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Fecha Receta</mat-label>
+            <input matInput [(ngModel)]="data.fechaReceta">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>CI Paciente</mat-label>
+            <input matInput [(ngModel)]="data.ciPaciente">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Foto URL</mat-label>
+            <input matInput [(ngModel)]="data.fotoURL">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Tipo Cancer</mat-label>
+            <mat-select [(ngModel)]="data.diagnostico" multiple>
+                <mat-option *ngFor="let tipoCancer of tipoCancers" [value]="tipoCancer" mul>{{ tipoCancer.tipoCancer}}</mat-option>
+            </mat-select>
+        </mat-form-field> -->
+
+
+        <div class="formColumn">
+            <div class="formRow">
+                <span mat-flat-button color="primary">N°</span>
+                <button mat-flat-button color="primary" (click)="addMed()">Añadir Medicamento</button>
+            </div>
+            <div class="formRow" *ngFor="let medicamento of data.medicamentos; let i = index">
+                <span>{{i+1}}</span>
+                <mat-form-field class="formRowElement">
+                    <mat-label>Codigo Medicamento</mat-label>
+                    <input matInput [(ngModel)]="medicamento.codigoMedicamento">
+                </mat-form-field>
+                <mat-form-field class="formRowElement">
+                    <mat-label>Cantidad Solicitada</mat-label>
+                    <input matInput [(ngModel)]="medicamento.cantidadSolicitada">
+                </mat-form-field>
+  
+                <button mat-mini-fab color="warn" class="button-delete" (click)="deleteMedForm(i)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+        </div>
+
+    </div>
+    <div mat-dialog-actions>
+        <button mat-button (click)="saveData()" class="button-save">Guardar</button>
+    </div>
+</div>

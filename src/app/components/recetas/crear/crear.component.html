@@ -1,52 +1,72 @@
 <div class="formUsuarios">
-    <h1 mat-dialog-title>Agregar | Modificar Usuarios</h1>
+    <h1 mat-dialog-title>Agregar | Modificar Recetas</h1>
     <div mat-dialog-content>
 
         <mat-form-field>
-            <mat-label>Carnet de Identidad</mat-label>
-            <input matInput [(ngModel)]="data.ci">
+            <mat-label>Tipo Receta</mat-label>
+            <input matInput [(ngModel)]="data.tipoReceta">
         </mat-form-field>
 
         <mat-form-field>
-            <mat-label>Nombre</mat-label>
-            <input matInput [(ngModel)]="data.nombre">
+            <mat-label>Fecha Receta</mat-label>
+            <input matInput [(ngModel)]="data.fechaReceta">
         </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>CI Paciente</mat-label>
+            <input matInput [(ngModel)]="data.ciPaciente">
+        </mat-form-field>
+
+        <!-- <mat-form-field>
+            <mat-label>Foto URL</mat-label>
+            <input matInput [(ngModel)]="data.fotoURL">
+        </mat-form-field> -->
+
         
-        <mat-form-field>
-            <mat-label>Apellido</mat-label>
-            <input matInput [(ngModel)]="data.apellido">
-        </mat-form-field>
-        
-        <mat-form-field>
-            <mat-label>Email</mat-label>
-            <input matInput [(ngModel)]="data.email">
-        </mat-form-field>
+             <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
 
-        <mat-form-field>
-            <mat-label>Password</mat-label>
-            <input matInput [(ngModel)]="data.password">
-        </mat-form-field>
-        
-  
-        <mat-form-field>
-            <mat-label>Rol</mat-label>
-            <mat-select [(ngModel)]="data.rol">
-              <mat-option *ngFor="let rol of roles" [value]="rol.nombre">{{ rol.nombre }}</mat-option>
-            </mat-select>
-          </mat-form-field>
+        {{fileName || "Suba la receta"}}
+
+        <mat-spinner *ngIf="show"></mat-spinner>
+        <button *ngIf="!show"  mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+            <mat-icon>attach_file</mat-icon>
+        </button>   
+      
+      
 
 
         <mat-form-field>
-            <mat-label>Sexo</mat-label>
-            <mat-select [(ngModel)]="data.sexo">
-                <mat-option *ngFor="let sexo of sexos" [value]="sexo.value">
-                    {{sexo.viewValue}}
-                </mat-option>
+            <mat-label>Tipo Cancer</mat-label>
+            <mat-select [(ngModel)]="data.diagnostico" multiple>
+                <mat-option *ngFor="let tipoCancer of tipoCancers" [value]="tipoCancer" mul>{{ tipoCancer.tipoCancer}}</mat-option>
             </mat-select>
         </mat-form-field>
-        
 
 
+        <div class="formColumn">
+            <div class="formRow">
+                <span mat-flat-button color="primary">N°</span>
+                <button mat-flat-button color="primary" (click)="addMed()">Añadir Medicamento</button>
+            </div>
+            <div class="formRow" *ngFor="let medicamento of data.diagnosticoMedicamentos; let i = index">
+                <span>{{i+1}}</span>
+                <mat-form-field class="formRowElement">
+                    <mat-label>Codigo Medicamento</mat-label>
+                    <input matInput [(ngModel)]="medicamento.codigoMedicamento">
+                </mat-form-field>
+                <mat-form-field class="formRowElement">
+                    <mat-label>Cantidad Solicitada</mat-label>
+                    <input matInput [(ngModel)]="medicamento.cantidadSolicitada">
+                </mat-form-field>
+                <mat-form-field class="formRowElement">
+                    <mat-label>Cantidad Entregada</mat-label>
+                    <input matInput [(ngModel)]="medicamento.cantidadEntregada">
+                </mat-form-field>
+                <button mat-mini-fab color="warn" class="button-delete" (click)="deleteMedForm(i)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+        </div>
 
     </div>
     <div mat-dialog-actions>

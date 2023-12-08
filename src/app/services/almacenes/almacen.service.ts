@@ -48,8 +48,5 @@ export class AlmacenService {
   postOCR(texto: string): Observable<any> {
     let url = "http://localhost:3000/api/motorDeInferencia";
     return this.http.post<any>(url, {texto});
-    
   }
-
-
 }

@@ -6,10 +6,18 @@
             <mat-label>Fecha Caducidad</mat-label>
             <input type="date" matInput [(ngModel)]="data.fechaCaducidad">
         </mat-form-field> 
+
+
+
+
         <mat-form-field>
-            <mat-label>Código Laboratorio</mat-label>
-            <input matInput [(ngModel)]="data.codigoLaboratorio">
-        </mat-form-field>       
+        <mat-label>Nombre Laboratorio</mat-label>
+        <mat-select [(ngModel)]="data.codigoLaboratorio">
+          <mat-option *ngFor="let laboratorio of laboratorios" [value]="laboratorio.nombre">{{ laboratorio.nombre }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
         <mat-form-field >
             <mat-label>Cantidad</mat-label>
             <input type="number"  matInput [(ngModel)]="data.cantidad" >

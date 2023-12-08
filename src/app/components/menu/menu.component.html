@@ -14,7 +14,7 @@
 
             <mat-list-item>
                 <mat-icon matListItemIcon class="white">document_scanner</mat-icon>
-                <a matListItemLine class="white" (click)="navigateTo('/archivos')">Compras</a>
+                <a matListItemLine class="white" (click)="navigateTo('/compras')">Compras</a>
             </mat-list-item>
 
             <mat-list-item>
@@ -24,7 +24,7 @@
 
             <mat-list-item>
                 <mat-icon matListItemIcon class="white">playlist_add_check</mat-icon>
-                <a matListItemLine class="white" (click)="navigateTo('almacen')">Pedidos</a>
+                <a matListItemLine class="white" (click)="navigateTo('pedidos')">Pedidos</a>
             </mat-list-item>
 
             <mat-list-item>
@@ -51,7 +51,7 @@
 
             <mat-list-item>
                 <mat-icon matListItemIcon class="white">description</mat-icon>
-                <a matListItemLine class="white" routerLink="/items/laboratorios">Recetas</a>
+                <a matListItemLine class="white" (click)="navigateTo('recetas')">Recetas</a>
             </mat-list-item>
 
           
@@ -66,9 +66,6 @@
                 <a matListItemLine class="white" (click)="navigateTo('roles')">Roles</a>
             </mat-list-item>
 
-
-       
-
         </mat-list>
     </mat-sidenav>
     <mat-sidenav-content>
@@ -81,7 +78,7 @@
             <!--<button mat-icon-button>
               <mat-icon>search</mat-icon>
             </button>-->
-            <button mat-icon-button>
+            <button mat-icon-button (click)="logOut()">
 
                 <mat-icon>logout</mat-icon>
 

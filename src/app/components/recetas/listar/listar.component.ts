@@ -7,6 +7,8 @@ import { Subscription } from 'rxjs';
 import { Usuario } from 'src/app/models/usuario';
 import { CrearComponent } from '../crear/crear.component';
 import { UsuarioService } from 'src/app/services/usuarios/usuario.service';
+import { Receta } from 'src/app/models/receta';
+import { RecetaService } from 'src/app/services/recetas/receta.service';
 
 @Component({
   selector: 'app-listar',
@@ -14,12 +16,12 @@ import { UsuarioService } from 'src/app/services/usuarios/usuario.service';
   styleUrls: ['./listar.component.css']
 })
 export class ListarComponent  implements AfterViewInit, OnDestroy {
-  usuarios: Usuario[];
+  recetas: Receta[];
   subscription: Subscription;
-  displayedColumns: string[] = ['ci', 'nombre', 'apellido', 'sexo', 'email', 'rol', 'state', 'acciones'];
-  dataSource: MatTableDataSource<Usuario>;
+  displayedColumns: string[] = ['tipoReceta', 'fechaReceta', 'ciPaciente', 'state', 'acciones'];
+  dataSource: MatTableDataSource<Receta>;
 
-  usuarioId:string = '';
+  recetaId:string = '';
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -27,15 +29,15 @@ export class ListarComponent  implements AfterViewInit, OnDestroy {
 
 
 
-  constructor(private usuarioService: UsuarioService, private dialog: MatDialog) {
-    this.dataSource = new MatTableDataSource(this.usuarios);
-    this.subscription = usuarioService.data$.subscribe((usuarios) => {
+  constructor(private recetaService: RecetaService, private dialog: MatDialog) {
+    this.dataSource = new MatTableDataSource(this.recetas);
+    this.subscription = recetaService.data$.subscribe((recetas) => {
 
-      this.dataSource.data = usuarios;
+      this.dataSource.data = recetas;
 
-      console.log(usuarios);
+      console.log(recetas);
     });
-    this.usuarioService.updateTableData();
+    this.recetaService.updateTableData();
   }
 
   ngOnDestroy(): void {
@@ -56,17 +58,17 @@ export class ListarComponent  implements AfterViewInit, OnDestroy {
     }
   }
 
-  editarUsuario(usuarioId: string) {
-    this.usuarioId = usuarioId;
-    console.log(usuarioId);
+  editarReceta(recetaId: string) {
+    this.recetaId = recetaId;
+    console.log(recetaId);
   }
 
-  eliminarUsuario(usuarioId: string, state: boolean) {
-    this.usuarioService.delUsuario(usuarioId, !state).subscribe((resp)=>{
+  eliminarReceta(recetaId: string, state: boolean) {
+    this.recetaService.delReceta(recetaId, !state).subscribe((resp)=>{
       if(resp){
         console.log(resp.msg);
-        console.log(usuarioId);
-        this.usuarioService.updateTableData();
+        console.log(recetaId);
+        this.recetaService.updateTableData();
       }
     });
   }

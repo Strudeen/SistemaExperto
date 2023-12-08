@@ -7,6 +7,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MedicamentoService } from 'src/app/services/medicamentos/medicamento.service';
 import { CrearInventario, CrearInventarioDatos } from 'src/app/models/inventario';
 import { InventarioDatosService } from 'src/app/services/inventarios/inventario-datos.service';
+import { LaboratorioService } from 'src/app/services/laboratorios/laboratorio.service';
+import { Laboratorio } from 'src/app/models/laboratorio';
 
 interface Tipo {
   value: string;
@@ -24,12 +26,12 @@ interface Exclusividad {
   templateUrl: './crear-datos.component.html',
   styleUrls: ['./crear-datos.component.css'],
 })
-export class CrearDatosComponent implements OnChanges {
+export class CrearDatosComponent implements OnChanges, OnInit {
   @Input() currentId = '';
 
   @Input() inventarioId = '';
 
-
+  laboratorios: Laboratorio[];
   public data: CrearInventarioDatos = {
     fechaCaducidad: '',
     cantidad: '0',
@@ -38,10 +40,15 @@ export class CrearDatosComponent implements OnChanges {
   };
 
   constructor(
+    private laboratorioServices: LaboratorioService,
     private inventarioDatosService: InventarioDatosService,
 
   ) { }
-
+  ngOnInit() {
+    this.laboratorioServices.getLaboratorios().subscribe(laboratorios => {
+      this.laboratorios = laboratorios;
+    });
+  }
 
 
   ngOnChanges(changes: SimpleChanges) {
@@ -51,7 +58,7 @@ export class CrearDatosComponent implements OnChanges {
       && this.currentId !== '') {
       this.inventarioDatosService.getInventario(this.currentId).subscribe((inventario) => {
         if (inventario) {
-          this.data.fechaCaducidad = inventario.fechaCaducidad
+          this.data.fechaCaducidad = this.formatDate(inventario.fechaCaducidad);
           this.data.cantidad = '' + inventario.cantidad
           this.data.codigoLaboratorio = inventario.codigoLaboratorio
           this.data.nroLote = inventario.nroLote
@@ -60,7 +67,13 @@ export class CrearDatosComponent implements OnChanges {
     }
   }
 
-
+  formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    const year = date.getUTCFullYear();
+    const month = ('0' + (date.getUTCMonth() + 1)).slice(-2);
+    const day = ('0' + date.getUTCDate()).slice(-2); 
+    return `${year}-${month}-${day}`;
+  }
   saveData() {
     if (this.currentId) {
       this.inventarioDatosService.putInventario(this.currentId, this.data).subscribe((resp) => {

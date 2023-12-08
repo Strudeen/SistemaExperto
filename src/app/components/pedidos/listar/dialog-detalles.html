@@ -1,0 +1,18 @@
+<h1 mat-dialog-title>Detalles Pedido</h1>
+<div mat-dialog-content>
+  <div *ngFor="let d of data">
+   
+    <p>
+      <b>Codigo Medicamento:</b> {{d.codigoMedicamento}}
+    </p> 
+    <p>
+      <b>Cantidad Solicitada:</b> {{d.cantidadSolicitada}}
+    </p> 
+    <p>
+      <b>Cantidad Entregada:</b> {{d.cantidadSolicitada}}
+    </p> 
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cerrar</button>
+</div>

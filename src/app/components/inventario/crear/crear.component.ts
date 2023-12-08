@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MedicamentoService } from 'src/app/services/medicamentos/medicamento.service';
 import { CrearInventario } from 'src/app/models/inventario';
 import { InventarioService } from 'src/app/services/inventarios/inventario.service';
+import { Medicamento } from 'src/app/models/medicamento';
 
 interface Tipo {
   value: string;
@@ -24,21 +25,25 @@ interface Exclusividad {
   templateUrl: './crear.component.html',
   styleUrls: ['./crear.component.css'],
 })
-export class CrearComponent implements OnChanges {
+export class CrearComponent implements OnChanges, OnInit {
   @Input() currentId = '';
 
-
+  medicamentos: Medicamento[];
   public data: CrearInventario = {
     codigoMedicamento: '',
     cantidad: 0
   };
 
   constructor(
+    private medicamentoService: MedicamentoService,
     private inventarioService: InventarioService,
 
   ) { }
-
-
+  ngOnInit() {
+    this.medicamentoService.getMedicamentos().subscribe(medicamentos => {
+      this.medicamentos = medicamentos;
+    });
+  }
 
   ngOnChanges(changes: SimpleChanges) {
     // Si el valor del currentId cambia, entonces listar con el id

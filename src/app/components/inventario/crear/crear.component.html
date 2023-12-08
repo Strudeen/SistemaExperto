@@ -2,10 +2,19 @@
     <h1 mat-dialog-title>Agregar | Modificar Inventario</h1>
     <div mat-dialog-content>
 
-        <mat-form-field>
+        <!-- <mat-form-field>
             <mat-label>Código</mat-label>
             <input matInput [(ngModel)]="data.codigoMedicamento">
-        </mat-form-field>               
+        </mat-form-field>                -->
+
+
+        <mat-form-field>
+            <mat-label>Codigo Medicamento</mat-label>
+            <mat-select [(ngModel)]="data.codigoMedicamento">
+              <mat-option *ngFor="let medicamento of medicamentos" [value]="medicamento.codigo">{{ medicamento.codigo }}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
 
     </div>
     <div mat-dialog-actions>

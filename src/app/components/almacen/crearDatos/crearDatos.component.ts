@@ -1,7 +1,9 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CrearAlmacenDatos } from 'src/app/models/almacen';
 import { AlmacenDatosService } from 'src/app/services/almacenes/almacen-datos.service';
-
+import { DatePipe } from '@angular/common'
+import { Laboratorio } from 'src/app/models/laboratorio';
+import { LaboratorioService } from 'src/app/services/laboratorios/laboratorio.service';
 
 interface Tipo {
   value: string;
@@ -22,12 +24,12 @@ interface Exclusividad {
 
 
 
-export class CrearDatosComponent implements OnChanges {
+export class CrearDatosComponent implements OnChanges, OnInit {
   @Input() currentId = '';
 
   @Input() almacenId = '';
 
-
+  laboratorios: Laboratorio[];
   public data: CrearAlmacenDatos = {
     fechaCaducidad: '',
     cantidad: '0',
@@ -36,9 +38,16 @@ export class CrearDatosComponent implements OnChanges {
   };
 
   constructor(
+    private laboratorioServices: LaboratorioService,
     private almacenDatosService: AlmacenDatosService,
 
-  ) { }
+  ) { 
+  }
+  ngOnInit() {
+    this.laboratorioServices.getLaboratorios().subscribe(laboratorios => {
+      this.laboratorios = laboratorios;
+    });
+  }
 
 
 
@@ -49,7 +58,8 @@ export class CrearDatosComponent implements OnChanges {
       && this.currentId !== '') {
       this.almacenDatosService.getAlmacen(this.currentId).subscribe((almacen) => {
         if (almacen) {
-          this.data.fechaCaducidad = almacen.fechaCaducidad
+          console.log(almacen);
+          this.data.fechaCaducidad = this.formatDate(almacen.fechaCaducidad);
           this.data.cantidad = '' + almacen.cantidad
           this.data.codigoLaboratorio = almacen.codigoLaboratorio
           this.data.nroLote = almacen.nroLote
@@ -57,8 +67,16 @@ export class CrearDatosComponent implements OnChanges {
       })
     }
   }
+  formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    const year = date.getUTCFullYear();
+    const month = ('0' + (date.getUTCMonth() + 1)).slice(-2);
+    const day = ('0' + date.getUTCDate()).slice(-2); 
+    return `${year}-${month}-${day}`;
+  }
 
-
+ 
+  
   saveData() {
     if (this.currentId) {
       this.almacenDatosService.putAlmacen(this.currentId, this.data).subscribe((resp) => {

@@ -1,0 +1,45 @@
+.login-card {
+  max-width: 400px;
+  margin-top: 3em;
+  margin-bottom: auto;
+  margin-left: auto;
+  margin-right: auto;
+
+
+  padding: 20px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.login-title {
+  text-align: center;
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-field {
+  width: 100%;
+}
+
+.submit-button {
+  margin-top: 16px;
+  background-color: #0072bb;
+  color: white;
+}
+
+/* General styles */
+mat-form-field {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+button {
+  margin-top: 8px;
+  background-color: #0072bb;
+}

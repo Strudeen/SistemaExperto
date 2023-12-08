@@ -10,5 +10,37 @@
     color: white !important;
     font-size: 1em; /* Ajusta el tamaño de la fuente del texto del botón */
     padding: 1em 1em;
-  
 }
+
+.formColumn{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;    
+}
+.formRow{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.formRowElement{
+    max-width:30%;
+    width: 80%;
+}
+
+.button-delete{
+   height: 2.5em;
+   width: 2.5em;
+   margin: 0;
+}
+.file-input {
+    display: none;
+  }
+
+  .upload-btn {
+    margin-right: 10px;
+  }
+  
+  .file-upload {
+    margin-bottom: 20px;
+  }

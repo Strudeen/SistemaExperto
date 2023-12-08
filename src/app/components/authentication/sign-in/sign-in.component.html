@@ -1,0 +1,18 @@
+<mat-card class="login-card">
+  <mat-card-title class="login-title">Sistema Experto CMNyR</mat-card-title>
+  <mat-card-title class="login-title">Iniciar Sesión</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" matInput placeholder="user@aben.gob.bo" type="email">
+      </mat-form-field>
+      <mat-form-field appearance="fill" class="form-field">
+        <mat-label>Contraseña</mat-label>
+        <input  formControlName="password" matInput placeholder="Ingresa tu contraseña" type="password">
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" class="submit-button">Ingresar</button>
+    </form>
+  </mat-card-content>
+</mat-card>

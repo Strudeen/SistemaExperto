@@ -69,7 +69,13 @@ export class ListarDatosComponent implements AfterViewInit, OnDestroy{
     this.inventarioId = inventarioId;
     
   }
-
+  formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    const year = date.getUTCFullYear();
+    const month = ('0' + (date.getUTCMonth() + 1)).slice(-2);
+    const day = ('0' + date.getUTCDate()).slice(-2); 
+    return `${year}-${month}-${day}`;
+  }
   eliminarInventario(inventarioId: string, state: boolean) {
     this.inventarioService.delInventario(inventarioId, !state).subscribe((resp)=>{
       if(resp){

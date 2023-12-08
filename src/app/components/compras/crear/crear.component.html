@@ -1,0 +1,87 @@
+<div class="formUsuarios">
+    <h1 mat-dialog-title>Agregar | Validar Compra</h1>
+    <div mat-dialog-content>
+        <mat-form-field>
+            <mat-label>Tipo Compra</mat-label>
+            <mat-select [(ngModel)]="data.tipo">
+                <mat-option *ngFor="let tipoCompra of tipoCompras" [value]="tipoCompra" mul>{{ tipoCompra
+                    }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Fecha Compra</mat-label>
+            <input matInput [(ngModel)]="data.fecha">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Nombre Empresa</mat-label>
+            <input matInput [(ngModel)]="data.nombreEmpresa">
+        </mat-form-field>
+
+        <div class="formColumn">
+            <div class="formRow">
+                <span mat-flat-button color="primary">N°</span>
+                <button mat-flat-button color="primary" (click)="addMed()">Añadir Medicamento</button>
+            </div>
+            <div class="formRow" *ngFor="let medicamento of data.medicamento; let i = index">
+                <span>{{i+1}}</span>
+                <mat-form-field class="formRowElement">
+                    <mat-label>Codigo Medicamento</mat-label>
+                    <input matInput [(ngModel)]="medicamento.codigoMedicamento">
+                </mat-form-field>
+                <mat-form-field class="formRowElement">
+                    <mat-label>Nro. Lote</mat-label>
+                    <input matInput [(ngModel)]="medicamento.nroLote">
+                </mat-form-field>
+
+                <mat-form-field class="formRowElement">
+                    <mat-label>Fecha Caducidad</mat-label>
+                    <input matInput [(ngModel)]="medicamento.fechaCaducidad">
+                </mat-form-field>
+
+
+
+                <mat-form-field class="formRowElement">
+                    <mat-label>Código Laboratorio</mat-label>
+                    <input matInput [(ngModel)]="medicamento.codigoLaboratorio">
+                </mat-form-field>
+
+                <mat-form-field class="formRowElement">
+                    <mat-label>Cantidad</mat-label>
+                    <input matInput [(ngModel)]="medicamento.cantidad">
+                </mat-form-field>
+
+                <mat-form-field class="formRowElement">
+                    <mat-label>Precio Unitario</mat-label>
+                    <input matInput [(ngModel)]="medicamento.precioUnitario">
+                </mat-form-field>
+
+                <button mat-mini-fab color="warn" class="button-delete" (click)="deleteMedForm(i)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+        </div>
+        
+        <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+
+        {{fileName || "Suba la Factura"}}
+
+        <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+            <mat-icon>attach_file</mat-icon>
+        </button>
+      
+        <input type="file" class="file-input" (change)="onFileSelected2($event)" #fileUpload2>
+
+        {{fileName2 || "Suba el Certificado de Empresa"}}
+
+        <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload2.click()">
+            <mat-icon>attach_file</mat-icon>
+        </button>
+    </div>
+    <div mat-dialog-actions>
+        <mat-spinner *ngIf="show"></mat-spinner>
+        <button mat-button *ngIf="!show" (click)="saveData()" class="button-save">Guardar</button>
+    </div>
+    
+</div>

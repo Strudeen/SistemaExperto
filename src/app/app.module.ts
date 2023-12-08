@@ -23,6 +23,11 @@ import { UsuariosModule } from './components/usuarios/usuarios.module';
 import { InventariosModule } from './components/inventario/inventario.module';
 import { AlmacenModule } from './components/almacen/almacen.module';
 import { RecetasModule } from './components/recetas/recetas.module';
+import { DatePipe } from '@angular/common';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { AuthenticationModule } from './components/authentication/authentication.module';
+import { ComprasModule } from './components/compras/compras.module';
+import { PedidosModule } from './components/pedidos/pedidos.module';
 
 @NgModule({
   declarations: [
@@ -46,8 +51,16 @@ import { RecetasModule } from './components/recetas/recetas.module';
     InventariosModule,
     AlmacenModule,
     RecetasModule,
+    AuthenticationModule,
+    ComprasModule,
+    PedidosModule
   ],
-  providers: [],
+  providers: [
+    DatePipe,
+    { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
+
+    
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

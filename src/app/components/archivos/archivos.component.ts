@@ -9,7 +9,7 @@ import { createWorker } from 'tesseract.js';
   styleUrls: ['./archivos.component.css']
 })
 export class ArchivosComponent {
-    fileName = '';
+  fileName = '';
   image = "";
   texto = "";
   formData = new FormData();
@@ -44,6 +44,5 @@ export class ArchivosComponent {
     })
     this.texto = text;
     await worker.terminate();
-  
   }
 }
