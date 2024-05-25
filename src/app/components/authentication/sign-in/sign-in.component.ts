@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog'; // Importa MatDialog
 import { Authentication } from 'src/app/models/authentication';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { AlertasAlmacenComponent } from '../../alertas/alertasAlmacen/alertas-almacen/alertas-almacen.component';
 
 @Component({
   selector: 'app-sign-in',
@@ -13,36 +15,38 @@ export class SignInComponent implements OnInit {
 
   error:string = '';
   submitted:boolean = false;
-  emailControl = new FormControl('', [Validators.required, Validators.email]);
-  passwordControl = new FormControl('', [Validators.required]);
+  emailControl = new FormControl('jhuayhuah@aben.gob.bo', [Validators.required, Validators.email]);
+  passwordControl = new FormControl('123456aben', [Validators.required]);
   loginForm = new FormGroup({
       email: this.emailControl,
       password: this.passwordControl,
   });
 
-  constructor(private authService: AuthenticationService, private router:Router) {
-      
-   }
+  constructor(private authService: AuthenticationService, 
+              private router: Router,
+              private dialog: MatDialog) { // Inyecta MatDialog
+  }
   
   ngOnInit() {
   }
+
   get f() { return this.loginForm.controls; }
+
   onSubmit() {
       this.submitted = true;
-      //validamos que el usuario ingrese datos
       if (this.loginForm.invalid) {
           return;
       } else {
-          //creamos el body
           const user: Authentication = {
               email: this.emailControl.value as string,
               password: this.passwordControl.value as string,
           }
           this.authService.signIn(user).subscribe({
               next: (resp) => {
-                  const {token} = resp;
-                  localStorage.setItem('token', token)
-                  this.router.navigate(['/'])
+                  const { token } = resp;
+                  localStorage.setItem('token', token);
+                  this.mostrarAlerta(); // Llama a la función para mostrar la alerta
+                  this.router.navigate(['/']);
               },
               error: (error) => {
                   this.error = error ? error : '';
@@ -51,6 +55,19 @@ export class SignInComponent implements OnInit {
           })
       }
   }
+
+  mostrarAlerta() {
+    const dialogRef = this.dialog.open(AlertasAlmacenComponent, {
+      width: '400px', // Especifica el ancho deseado
+      // Puedes agregar más opciones según tus necesidades
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialogo cerrado');
+    });
+  }
+
+
 
   // onLogin() {
   //     const body = {

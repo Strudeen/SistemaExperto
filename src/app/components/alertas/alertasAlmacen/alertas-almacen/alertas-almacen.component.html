@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>Medicamentos Próximos a Vencer</h2>
+<mat-dialog-content>
+  <ul>
+    <li class="alerta" *ngFor="let medicamento of medicamentos">
+      {{ medicamento.almacen.codigoMedicamento }} - Vence: {{ medicamento.fechaCaducidad }}
+    </li>
+  </ul>
+</mat-dialog-content>

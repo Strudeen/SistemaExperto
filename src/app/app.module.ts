@@ -28,6 +28,7 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { AuthenticationModule } from './components/authentication/authentication.module';
 import { ComprasModule } from './components/compras/compras.module';
 import { PedidosModule } from './components/pedidos/pedidos.module';
+import { AlertasModule } from './components/alertas/alertas.module';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { PedidosModule } from './components/pedidos/pedidos.module';
     RecetasModule,
     AuthenticationModule,
     ComprasModule,
-    PedidosModule
+    PedidosModule,
+    AlertasModule
   ],
   providers: [
     DatePipe,

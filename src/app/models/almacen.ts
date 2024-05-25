@@ -26,7 +26,7 @@ export interface AlmacenDatos {
   cantidad: number
   nroLote: string
   state: boolean
-  almacenes: string
+  almacen: Almacen
   createdAt: string
   updatedAt: string
 }
@@ -39,6 +39,6 @@ export interface AlmacenEntity {
   datos: AlmacenDatos[]
   createdAt: string
   updatedAt: string
-}
+} 
   
 

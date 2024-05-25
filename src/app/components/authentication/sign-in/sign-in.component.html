@@ -5,11 +5,11 @@
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
       <mat-form-field appearance="fill" class="form-field">
         <mat-label>Email</mat-label>
-        <input formControlName="email" matInput placeholder="user@aben.gob.bo" type="email">
+        <input formControlName="email" autocomplete="new-password" value="jhuayhuah@aben.gob.bo" matInput placeholder="user@aben.gob.bo" type="email">
       </mat-form-field>
       <mat-form-field appearance="fill" class="form-field">
         <mat-label>Contraseña</mat-label>
-        <input  formControlName="password" matInput placeholder="Ingresa tu contraseña" type="password">
+        <input  formControlName="password" autocomplete="new-password" matInput placeholder="Ingresa tu contraseña" type="password">
       </mat-form-field>
 
       <button mat-raised-button color="primary" class="submit-button">Ingresar</button>
