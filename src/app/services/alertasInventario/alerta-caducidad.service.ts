@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
-import { AlmacenDatos } from 'src/app/models/almacen';
+import { InventarioDatos } from 'src/app/models/inventario';
 
 
 @Injectable({
@@ -11,9 +11,9 @@ export class AlertaCaducidadService {
 
   constructor(private http: HttpClient) {}
 
-  getAlertasAlmacen(): Observable<AlmacenDatos[]> {
-    let url = "http://localhost:3000/api/alertasAlmacen/"
-    return this.http.get<AlmacenDatos[]>(url).pipe(
+  getAlertasInventario(): Observable<InventarioDatos[]> {
+    let url = "http://localhost:3000/api/alertasInventario/"
+    return this.http.get<InventarioDatos[]>(url).pipe(
       tap(alertas => {
         alertas.forEach(alerta => {
           if (alerta.fechaCaducidad) {

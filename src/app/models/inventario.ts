@@ -26,7 +26,7 @@ export interface InventarioDatos {
   cantidad: number
   nroLote: string
   state: boolean
-  inventarios: string
+  inventarios: Inventario
   createdAt: string
   updatedAt: string
 }

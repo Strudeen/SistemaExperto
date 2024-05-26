@@ -4,11 +4,13 @@ import { AlertasRoutingModule } from './alertas-routing.module';
 import { AlertasAlmacenComponent } from './alertasAlmacen/alertas-almacen/alertas-almacen.component';
 import { MaterialModule } from 'src/app/material.module';
 import { MatDialogModule } from '@angular/material/dialog';
+import { AlertasInventarioComponent } from './alertasInventario/alertas-inventario/alertas-inventario.component';
 
 
 @NgModule({
   declarations: [
-    AlertasAlmacenComponent
+    AlertasAlmacenComponent,
+    AlertasInventarioComponent
   ],
   imports: [
     CommonModule,
@@ -17,7 +19,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     AlertasRoutingModule
   ],
   exports: [
-    AlertasAlmacenComponent
+    AlertasAlmacenComponent,
+    AlertasInventarioComponent
   ]
 })
 export class AlertasModule { }

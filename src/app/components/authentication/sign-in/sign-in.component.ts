@@ -5,6 +5,8 @@ import { MatDialog } from '@angular/material/dialog'; // Importa MatDialog
 import { Authentication } from 'src/app/models/authentication';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { AlertasAlmacenComponent } from '../../alertas/alertasAlmacen/alertas-almacen/alertas-almacen.component';
+import { AlertasInventarioComponent } from '../../alertas/alertasInventario/alertas-inventario/alertas-inventario.component';
+import { jwtDecode } from "jwt-decode";
 
 @Component({
   selector: 'app-sign-in',
@@ -45,7 +47,17 @@ export class SignInComponent implements OnInit {
               next: (resp) => {
                   const { token } = resp;
                   localStorage.setItem('token', token);
-                  this.mostrarAlerta(); // Llama a la función para mostrar la alerta
+                  const decoded:any = jwtDecode(token);
+                  console.log('TOKEN', decoded);
+                  if(decoded.user.rol === 'Farmaceutica')
+                    this.mostrarAlerta2();
+                  if(decoded.user.rol === 'Almacenista')
+                  this.mostrarAlerta();
+                  if(decoded.user.rol === 'Administrador'){
+                    this.mostrarAlerta2();
+                    this.mostrarAlerta();
+                  }
+           
                   this.router.navigate(['/']);
               },
               error: (error) => {
@@ -59,12 +71,25 @@ export class SignInComponent implements OnInit {
   mostrarAlerta() {
     const dialogRef = this.dialog.open(AlertasAlmacenComponent, {
       width: '400px', // Especifica el ancho deseado
-      // Puedes agregar más opciones según tus necesidades
+    // Puedes agregar más opciones según tus necesidades
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('Dialogo cerrado');
     });
+
+  }
+  mostrarAlerta2(){
+    const dialogRef = this.dialog.open(AlertasInventarioComponent, {
+      width: '400px', // Especifica el ancho deseado
+   // Puedes agregar más opciones según tus necesidades
+
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Dialogo cerrado');
+    });
+
   }
 
 
