@@ -16,7 +16,7 @@ import { AlmacenDatosService } from 'src/app/services/almacenes/almacen-datos.se
 export class ListarDatosComponent implements AfterViewInit, OnDestroy{
   almacenes: AlmacenDatos[];
   subscription: Subscription;
-  displayedColumns: string[] = ['fechaCaducidad', 'codigoLaboratorio','cantidad','nroLote','state', 'acciones'];
+  displayedColumns: string[] = ['fechaCaducidad', 'codigoLaboratorio','cantidad','nroLote','state'];
   dataSource: MatTableDataSource<AlmacenDatos>;
 
   almacenId:string = '';

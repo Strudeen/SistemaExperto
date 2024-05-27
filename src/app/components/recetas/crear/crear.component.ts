@@ -11,6 +11,11 @@ import { RecetaForm } from 'src/app/models/receta';
 import { RecetaService } from 'src/app/services/recetas/receta.service';
 import { Medicamento } from 'src/app/models/medicamento';
 import { ComprasService } from 'src/app/services/compras/compras.service';
+import { MedicamentoService } from 'src/app/services/medicamentos/medicamento.service';
+import { Paciente } from 'src/app/models/paciente';
+import { PacienteService } from 'src/app/services/pacientes/paciente.service';
+import { Inventario } from 'src/app/models/inventario';
+import { InventarioService } from 'src/app/services/inventarios/inventario.service';
 
 
 
@@ -28,8 +33,9 @@ export class CrearComponent implements OnChanges, OnInit {
   @Input() currentId = '';
 
   roles: any[];
-
-  medicamentos: Medicamento
+  medicamentos: Medicamento[];
+  pacientes: Paciente[];
+  inventario: Inventario[];
 
   tipoCancers: tipoCancer[] = [
      {tipoCancer:'Cáncer de Mama'}, 
@@ -90,10 +96,18 @@ export class CrearComponent implements OnChanges, OnInit {
   constructor(
     private compraService: ComprasService,
     private recetaService: RecetaService,
+    private medicamentoService: MedicamentoService,
+    private pacienteService: PacienteService,
+    private inventarioService: InventarioService,
   ) { }
 
   ngOnInit() {
-
+    this.inventarioService.getInventarios().subscribe(inventario => {
+      this.inventario = inventario;
+    })
+    this.pacienteService.getPacientes().subscribe(pacientes => {
+      this.pacientes = pacientes;
+    })
   }
 
   ngOnChanges(changes: SimpleChanges) {

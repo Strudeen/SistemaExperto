@@ -68,7 +68,7 @@ table {
 
 .align{
   display: flex;
-  width: 100vw;
+  width: 82vw;
   align-items: center;
-  justify-content: end;
+  justify-content: start;
 }

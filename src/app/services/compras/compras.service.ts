@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 import { Compra, CompraForm } from 'src/app/models/compras';
 
@@ -22,7 +22,20 @@ export class ComprasService {
 
   getCompras(): Observable<Compra[]> {
     let url = "http://localhost:3000/api/compras";
-    return this.http.get<Compra[]>(url);
+    return this.http.get<Compra[]>(url).pipe(
+      tap(compra => {
+        compra.forEach(compra => {
+          if (compra.fecha) {
+            let fechaCaducidad = new Date(compra.fecha);
+            let diaCaducidad = fechaCaducidad.toLocaleDateString('es-BO', { day: '2-digit' });
+            let mesCaducidad = fechaCaducidad.toLocaleDateString('es-BO', { month: 'long' });
+            let anoCaducidad = fechaCaducidad.toLocaleDateString('es-BO', { year: 'numeric' });
+            let fechaFormateada = ` ${diaCaducidad} de ${mesCaducidad.charAt(0).toUpperCase() + mesCaducidad.slice(1)} de ${anoCaducidad}`;
+            compra.fecha = fechaFormateada;
+          }
+        });
+      }),
+    );
   }
 
   postCompra(crearCompra: CompraForm): Observable<any> {

@@ -16,6 +16,8 @@ import { MotorInferenciaService } from 'src/app/services/compras/motorInferencia
 import { OCRCertificadoEmpresa, OCRFactura } from 'src/app/models/ocr';
 import { Medicamento } from 'src/app/models/medicamento';
 import { MedicamentoService } from 'src/app/services/medicamentos/medicamento.service';
+import { LaboratorioService } from 'src/app/services/laboratorios/laboratorio.service';
+import { Laboratorio } from 'src/app/models/laboratorio';
 
 
 
@@ -33,6 +35,7 @@ export class CrearComponent implements OnChanges, OnInit {
   fileName = '';
   fileName2 = '';
   show = false;
+  laboratorios: Laboratorio[];
   
 
   tipoCompras: string[] = ['MENOR', 'MAYOR'];
@@ -96,17 +99,23 @@ export class CrearComponent implements OnChanges, OnInit {
       precioUnitario: 0
     }],
   };
-
+  today: Date;
   constructor(
     private medicamentoService: MedicamentoService,
     private compraService: ComprasService,
-    private motorInferenciaService:MotorInferenciaService
-  ) { }
+    private motorInferenciaService:MotorInferenciaService,
+    private laboratorioService: LaboratorioService,
+  ) { 
+    this.today = new Date();
+  }
 
   ngOnInit() {
     this.medicamentoService.getMedicamentos().subscribe(medicamentos => {
       this.medicamentos = medicamentos;
     });
+    this.laboratorioService.getLaboratorios().subscribe(laboratorio => {
+      this.laboratorios = laboratorio;
+    })
   }
 
   ngOnChanges(changes: SimpleChanges) {

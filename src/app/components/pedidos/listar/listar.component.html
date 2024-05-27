@@ -42,14 +42,14 @@
           <td mat-cell *matCellDef="let row; let i = index;">
             <div class="flex">
                 <button  mat-icon-button (click)="actualizarPedido(row._id, 'completado')" class="edit">
-                    <mat-icon>edit</mat-icon>
+                    <mat-icon>check</mat-icon>
                 </button>
                 <button mat-icon-button (click)="openDialog(i)" class="delete">
                   <mat-icon>info</mat-icon>
               </button>
                 
               <button mat-icon-button (click)="cancelarPedido(row._id)" class="delete">
-                <mat-icon>delete</mat-icon>
+                <mat-icon>close</mat-icon>
               </button>
             </div>
           </td>

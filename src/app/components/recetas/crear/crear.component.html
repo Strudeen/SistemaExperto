@@ -7,15 +7,21 @@
             <input matInput [(ngModel)]="data.tipoReceta">
         </mat-form-field>
 
-        <mat-form-field>
+         <mat-form-field>
             <mat-label>Fecha Receta</mat-label>
-            <input matInput [(ngModel)]="data.fechaReceta">
-        </mat-form-field>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="data.fechaReceta">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+     
 
         <mat-form-field>
             <mat-label>CI Paciente</mat-label>
-            <input matInput [(ngModel)]="data.ciPaciente">
-        </mat-form-field>
+            <mat-select [(ngModel)]="data.ciPaciente">
+              <mat-option *ngFor="let paciente of pacientes" [value]="paciente.ci">{{ paciente.apellido + " - " + paciente.ci }}</mat-option>
+            </mat-select>
+          </mat-form-field>
 
         <!-- <mat-form-field>
             <mat-label>Foto URL</mat-label>
@@ -50,10 +56,17 @@
             </div>
             <div class="formRow" *ngFor="let medicamento of data.diagnosticoMedicamentos; let i = index">
                 <span>{{i+1}}</span>
+    
+
                 <mat-form-field class="formRowElement">
                     <mat-label>Codigo Medicamento</mat-label>
-                    <input matInput [(ngModel)]="medicamento.codigoMedicamento">
-                </mat-form-field>
+                    <mat-select [(ngModel)]="medicamento.codigoMedicamento">
+                      <mat-option *ngFor="let inventarios of inventario" [value]="inventarios.codigoMedicamento">   {{ inventarios.codigoMedicamento }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+
+
                 <mat-form-field class="formRowElement">
                     <mat-label>Cantidad Solicitada</mat-label>
                     <input matInput [(ngModel)]="medicamento.cantidadSolicitada">

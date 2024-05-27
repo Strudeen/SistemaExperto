@@ -9,10 +9,15 @@
             </mat-select>
         </mat-form-field>
 
+    
         <mat-form-field>
             <mat-label>Fecha Compra</mat-label>
-            <input matInput [(ngModel)]="data.fecha">
-        </mat-form-field>
+            <input matInput [matDatepicker]="picker" [(ngModel)]="data.fecha">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+
+
 
         <mat-form-field>
             <mat-label>Nombre Empresa</mat-label>
@@ -26,26 +31,38 @@
             </div>
             <div class="formRow" *ngFor="let medicamento of data.medicamento; let i = index">
                 <span>{{i+1}}</span>
+       
+
+
                 <mat-form-field class="formRowElement">
                     <mat-label>Codigo Medicamento</mat-label>
-                    <input matInput [(ngModel)]="medicamento.codigoMedicamento">
-                </mat-form-field>
+                    <mat-select [(ngModel)]="medicamento.codigoMedicamento">
+                      <mat-option *ngFor="let medicamento of medicamentos" [value]="medicamento.codigo">   {{ medicamento.codigo + " - " + medicamento.nombre }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+
+
                 <mat-form-field class="formRowElement">
                     <mat-label>Nro. Lote</mat-label>
                     <input matInput [(ngModel)]="medicamento.nroLote">
                 </mat-form-field>
 
+
                 <mat-form-field class="formRowElement">
                     <mat-label>Fecha Caducidad</mat-label>
-                    <input matInput [(ngModel)]="medicamento.fechaCaducidad">
-                </mat-form-field>
+                    <input matInput [matDatepicker]="picker" [(ngModel)]="medicamento.fechaCaducidad" [min]="today">
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
 
 
 
-                <mat-form-field class="formRowElement">
-                    <mat-label>Código Laboratorio</mat-label>
-                    <input matInput [(ngModel)]="medicamento.codigoLaboratorio">
-                </mat-form-field>
+                  <mat-form-field class="formRowElement">
+                    <mat-label>Laboratorio </mat-label>
+                    <mat-select [(ngModel)]="medicamento.codigoLaboratorio">
+                      <mat-option *ngFor="let laboratorio of laboratorios" [value]="laboratorio.codigo">{{ laboratorio.nombre }}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
 
                 <mat-form-field class="formRowElement">
                     <mat-label>Cantidad</mat-label>

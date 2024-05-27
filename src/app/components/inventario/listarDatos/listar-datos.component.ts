@@ -20,7 +20,7 @@ import { InventarioDatosService } from 'src/app/services/inventarios/inventario-
 export class ListarDatosComponent implements AfterViewInit, OnDestroy{
   inventarios: InventarioDatos[];
   subscription: Subscription;
-  displayedColumns: string[] = ['fechaCaducidad', 'codigoLaboratorio','cantidad','nroLote','state', 'acciones'];
+  displayedColumns: string[] = ['fechaCaducidad', 'codigoLaboratorio','cantidad','nroLote','state'];
   dataSource: MatTableDataSource<InventarioDatos>;
 
   inventarioId:string = '';

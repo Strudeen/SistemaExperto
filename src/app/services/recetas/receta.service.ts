@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Receta, RecetaForm } from 'src/app/models/receta';
 import { CrearUsuario, Usuario } from 'src/app/models/usuario';
 
@@ -21,7 +21,20 @@ export class RecetaService {
 
   getRecetas(): Observable<Receta[]> {
     let url = "http://localhost:3000/api/receta";
-    return this.http.get<Receta[]>(url);
+    return this.http.get<Receta[]>(url).pipe(
+      tap(receta => {
+        receta.forEach(receta => {
+          if (receta.fechaReceta) {
+            let fechaCaducidad = new Date(receta.fechaReceta);
+            let diaCaducidad = fechaCaducidad.toLocaleDateString('es-BO', { day: '2-digit' });
+            let mesCaducidad = fechaCaducidad.toLocaleDateString('es-BO', { month: 'long' });
+            let anoCaducidad = fechaCaducidad.toLocaleDateString('es-BO', { year: 'numeric' });
+            let fechaFormateada = ` ${diaCaducidad} de ${mesCaducidad.charAt(0).toUpperCase() + mesCaducidad.slice(1)} de ${anoCaducidad}`;
+            receta.fechaReceta = fechaFormateada;
+          }
+        });
+      }),
+    );
   }
   postReceta(CrearReceta: RecetaForm): Observable<any> {
 

@@ -19,7 +19,7 @@ export class ListarComponent implements AfterViewInit, OnDestroy {
 
   pedidos: Pedido[];
   subscription: Subscription;
-  displayedColumns: string[] = ['estado', 'medicamentos', 'fechaPedido', 'acciones'];
+  displayedColumns: string[] = ['estado', 'fechaPedido', 'acciones'];
   dataSource: MatTableDataSource<Pedido>;
 
   pedidoId: string = '';

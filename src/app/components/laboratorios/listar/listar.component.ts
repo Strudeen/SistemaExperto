@@ -16,7 +16,7 @@ import { LaboratorioService } from 'src/app/services/laboratorios/laboratorio.se
 export class ListarComponent implements AfterViewInit, OnDestroy {
   laboratorios: Laboratorio[];
   subscription: Subscription;
-  displayedColumns: string[] = ['codigo', 'nombre', 'nit', 'telefono', 'celular', 'email', 'state', 'acciones'];
+  displayedColumns: string[] = ['codigo', 'nombre', 'nit', 'telefono', 'celular', 'email', 'direccion','state', 'acciones'];
   dataSource: MatTableDataSource<Laboratorio>;
 
   laboratorioId:string = '';

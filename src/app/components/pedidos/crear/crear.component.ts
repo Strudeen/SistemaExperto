@@ -1,5 +1,8 @@
 import { Component, Input, OnChanges, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
+import { Almacen } from 'src/app/models/almacen';
 import { CrearPedido } from 'src/app/models/pedido';
+import { AlmacenService } from 'src/app/services/almacenes/almacen.service';
+import { MedicamentoService } from 'src/app/services/medicamentos/medicamento.service';
 import { PedidosService } from 'src/app/services/pedidos/pedidos.service';
 
 
@@ -15,7 +18,9 @@ import { PedidosService } from 'src/app/services/pedidos/pedidos.service';
 export class CrearComponent implements OnChanges, OnInit {
   @Input() currentId = '';
 
-  roles: any[];
+
+  medicamentos: any[];
+  almacenes: Almacen[];
 
   // nuevoEstado: tipoCancer[] = [
   //    {tipoCancer:'Cáncer de Mama'}, 
@@ -41,10 +46,18 @@ export class CrearComponent implements OnChanges, OnInit {
   // sexos: any;
   constructor(
     private pedidosService: PedidosService,
+    private medicamentosService: MedicamentoService,
+    private almacenService: AlmacenService,
   ) { }
 
   ngOnInit() {
-
+    this.medicamentosService.getMedicamentos().subscribe(medicamentos =>{
+      this.medicamentos = medicamentos
+      console.log(this.medicamentos);
+    });
+    this.almacenService.getAlmacenes().subscribe(almacenes => {
+      this.almacenes = almacenes
+    })
   }
 
   ngOnChanges(changes: SimpleChanges) {

@@ -18,7 +18,7 @@ export class ListarComponent  implements AfterViewInit, OnDestroy {
   subscription: Subscription;
   displayedColumns: string[] = ['ci', 'nombre', 'apellido', 'sexo', 'email', 'rol', 'state', 'acciones'];
   dataSource: MatTableDataSource<Usuario>;
-
+  showPassword: boolean = true
   usuarioId:string = '';
 
 
@@ -59,6 +59,12 @@ export class ListarComponent  implements AfterViewInit, OnDestroy {
   editarUsuario(usuarioId: string) {
     this.usuarioId = usuarioId;
     console.log(usuarioId);
+    this.ocultarPassword();
+  }
+
+
+  ocultarPassword(){
+    this.showPassword = false;
   }
 
   eliminarUsuario(usuarioId: string, state: boolean) {
