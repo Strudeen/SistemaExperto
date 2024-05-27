@@ -1,5 +1,5 @@
 <mat-sidenav-container>
-    <mat-sidenav [(opened)]="opened" mode="side">
+    <mat-sidenav [(opened)]='opened' mode="side">
         <mat-list>
             <mat-list-item routerLinkActive="activebutton">
                 <mat-icon matListItemIcon class="white">account_circle</mat-icon>
@@ -42,33 +42,29 @@
                 <a matListItemLine class="white" (click)="navigateTo('laboratorios')">Laboratorios</a>
             </mat-list-item>
 
+
             <mat-list-item>
                 <mat-icon matListItemIcon class="white">wc</mat-icon>
                 <a matListItemLine class="white" (click)="navigateTo('pacientes')">Pacientes</a>
             </mat-list-item>
+
 
             <mat-list-item>
                 <mat-icon matListItemIcon class="white">description</mat-icon>
                 <a matListItemLine class="white" (click)="navigateTo('recetas')">Recetas</a>
             </mat-list-item>
 
-            <mat-expansion-panel>
-                <mat-expansion-panel-header>
-                    <mat-panel-title>
-                        <mat-icon matListItemIcon class="white">people_alt</mat-icon>
-                       <a class="white">Gestión de Usuarios</a> 
-                    </mat-panel-title>
-                </mat-expansion-panel-header>
+          
+            <mat-list-item>
+                <mat-icon matListItemIcon class="white">people_alt</mat-icon>
+                <a matListItemLine class="white" (click)="navigateTo('usuarios')">Usuarios</a>
+            </mat-list-item>
 
-                <mat-action-list>
-                    <mat-list-item>
-                        <a matListItemLine class="white" (click)="navigateTo('usuarios')">Usuarios</a>
-                    </mat-list-item>
-                    <mat-list-item>
-                        <a matListItemLine class="white" (click)="navigateTo('roles')">Roles</a>
-                    </mat-list-item>
-                </mat-action-list>
-            </mat-expansion-panel>
+
+            <mat-list-item>
+                <mat-icon matListItemIcon class="white">groups</mat-icon>
+                <a matListItemLine class="white" (click)="navigateTo('roles')">Roles</a>
+            </mat-list-item>
 
         </mat-list>
     </mat-sidenav>
@@ -79,8 +75,13 @@
             </button>
             <span></span>
             <span class="spacer"></span>
+            <!--<button mat-icon-button>
+              <mat-icon>search</mat-icon>
+            </button>-->
             <button mat-icon-button (click)="logOut()">
+
                 <mat-icon>logout</mat-icon>
+
             </button>
         </mat-toolbar>
         <router-outlet></router-outlet>

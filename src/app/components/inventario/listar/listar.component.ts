@@ -10,6 +10,9 @@ import { CrearComponent } from '../crear/crear.component';
 import { Inventario } from 'src/app/models/inventario';
 import { InventarioService } from 'src/app/services/inventarios/inventario.service';
 import { Router } from '@angular/router';
+import { FormControl, FormGroup } from '@angular/forms';
+import { ReportesFarmaciaService } from 'src/app/services/reportesFarmacia/reportes-farmacia.service';
+import { ReportesFarmaciaPDFService } from 'src/app/services/reportesFarmacia/reportes-farmacia-pdf.service';
 
 
 @Component({
@@ -22,22 +25,32 @@ export class ListarComponent implements AfterViewInit, OnDestroy{
   subscription: Subscription;
   displayedColumns: string[] = ['codigo', 'cantidad','state', 'acciones'];
   dataSource: MatTableDataSource<Inventario>;
-
+  range = new FormGroup({
+    start: new FormControl<Date | null>(null),
+    end: new FormControl<Date | null>(null),
+  });
   inventarioId:string = '';
+  
   
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(
     private inventarioService: InventarioService,
+    private reporteService: ReportesFarmaciaService,
+    
      private dialog: MatDialog,
-     private router: Router,) {
+     private router: Router,
+     private pdfService: ReportesFarmaciaPDFService) {
     this.dataSource = new MatTableDataSource(this.inventarios);
     this.subscription = inventarioService.data$.subscribe((inventario) => {
       this.dataSource.data = inventario;
     });
     this.inventarioService.updateTableData();
+    
   }
+
+
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
@@ -73,5 +86,19 @@ export class ListarComponent implements AfterViewInit, OnDestroy{
   }
   verInventarioData(inventarioId: string) {
     this.router.navigate([`/inventario/datos/${inventarioId}`]); 
+  }
+
+  getReportes() {
+    const data = {
+      mesInicio: this.range.get('start')?.value,
+      mesFinal: this.range.get('end')?.value,
+    }
+
+    console.log(data);
+
+    this.reporteService.getReportesFarmacia(data).subscribe(pdf => {
+      
+      this.pdfService.generateFarmaciaPDF(pdf);
+    });
   }
 }

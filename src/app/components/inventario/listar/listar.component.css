@@ -57,3 +57,19 @@ table {
 .listarMedicamentos-container{
     margin: 2em;
 }
+
+.button-save{
+  background-color: #34c38f;
+  color: white !important;
+  font-size: 1em; /* Ajusta el tamaño de la fuente del texto del botón */
+  padding: 1em 1em;
+  margin: 0 2rem;
+}
+
+
+.align{
+  display: flex;
+  width: 82vw;
+  align-items: center;
+  justify-content: start;
+}

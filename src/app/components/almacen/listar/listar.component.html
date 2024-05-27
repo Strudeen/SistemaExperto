@@ -1,4 +1,5 @@
 <div class="listarMedicamentos-container">
+  <h1 mat-dialog-title>Almacén</h1>
   <!-- <app-crear [currentId]="almacenId"></app-crear> -->
   <div class="auxB">
     <div class="align">
@@ -31,7 +32,7 @@
 
       <!-- Progress Column -->
       <ng-container matColumnDef="codigo">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Codigo </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Código </th>
         <td mat-cell *matCellDef="let row"> {{row.codigoMedicamento}} </td>
       </ng-container>
 

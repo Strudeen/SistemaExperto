@@ -27,7 +27,7 @@
         <div class="formColumn">
             <div class="formRow">
                 <span mat-flat-button color="primary">N°</span>
-                <button mat-flat-button color="primary" (click)="addMed()">Añadir Medicamento</button>
+                <button mat-button color="primary" class="button-add"  (click)="addMed()">Añadir Medicamento</button>
             </div>
             <div class="formRow" *ngFor="let medicamento of data.medicamento; let i = index">
                 <span>{{i+1}}</span>
@@ -35,7 +35,7 @@
 
 
                 <mat-form-field class="formRowElement">
-                    <mat-label>Codigo Medicamento</mat-label>
+                    <mat-label>Código Medicamento</mat-label>
                     <mat-select [(ngModel)]="medicamento.codigoMedicamento">
                       <mat-option *ngFor="let medicamento of medicamentos" [value]="medicamento.codigo">   {{ medicamento.codigo + " - " + medicamento.nombre }}</mat-option>
                     </mat-select>

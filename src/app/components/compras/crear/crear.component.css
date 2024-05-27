@@ -72,4 +72,19 @@
     margin-left: 10em;
     margin-right: 10em;
   }
-  
+  .button-save{
+    background-color: #34c38f;
+    color: white !important;
+    font-size: 1em; /* Ajusta el tamaño de la fuente del texto del botón */
+    padding: 1em 1em;
+    margin-top: 20px;
+
+  }
+
+  .button-add{
+    background-color: #0069B6;
+    color: white !important;
+    font-size: 1em; /* Ajusta el tamaño de la fuente del texto del botón */
+    padding: 1em 1em;
+
+  }

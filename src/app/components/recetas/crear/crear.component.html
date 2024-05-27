@@ -42,7 +42,7 @@
 
 
         <mat-form-field>
-            <mat-label>Tipo Cancer</mat-label>
+            <mat-label>Tipo Cáncer</mat-label>
             <mat-select [(ngModel)]="data.diagnostico" multiple>
                 <mat-option *ngFor="let tipoCancer of tipoCancers" [value]="tipoCancer" mul>{{ tipoCancer.tipoCancer}}</mat-option>
             </mat-select>
@@ -59,7 +59,7 @@
     
 
                 <mat-form-field class="formRowElement">
-                    <mat-label>Codigo Medicamento</mat-label>
+                    <mat-label>Código Medicamento</mat-label>
                     <mat-select [(ngModel)]="medicamento.codigoMedicamento">
                       <mat-option *ngFor="let inventarios of inventario" [value]="inventarios.codigoMedicamento">   {{ inventarios.codigoMedicamento }}</mat-option>
                     </mat-select>

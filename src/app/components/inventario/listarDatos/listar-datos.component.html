@@ -1,4 +1,6 @@
 <div class="listarMedicamentos-container">
+  <h1 mat-dialog-title>Detalles de Medicamento</h1>
+
   <!-- <app-crear-datos [currentId]="inventarioId" [inventarioId]="inventarioRouteId"></app-crear-datos> -->
   <div class="auxB">
     <mat-form-field class="form_btn">
@@ -21,7 +23,7 @@
     </ng-container>
       <!-- Name Column -->
       <ng-container matColumnDef="codigoLaboratorio">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Codigo Laboratorio </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Código Laboratorio </th>
         <td mat-cell *matCellDef="let row"> {{row.codigoLaboratorio}} </td>
       </ng-container>
 

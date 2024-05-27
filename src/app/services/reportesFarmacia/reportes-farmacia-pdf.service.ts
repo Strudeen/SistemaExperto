@@ -5,11 +5,11 @@ import 'jspdf-autotable'
 @Injectable({
   providedIn: 'root'
 })
-export class ReportesPdfService {
+export class ReportesFarmaciaPDFService {
   tableDataEmpleados: any[];
   tableDataEquipos: any[];
 
-  generatePDF(dataPDFs: any[]) {
+  generateFarmaciaPDF(dataPDFs: any[]) {
 
     const doc = new jsPDF();
 
@@ -47,13 +47,13 @@ export class ReportesPdfService {
 
 
     doc.setFontSize(13);
-    const fifthText = 'REPORTE DE INVENTARIO DE ALMACÉN';
+    const fifthText = 'REPORTE DE INVENTARIO DE FARMACIA';
     const fifthTextWidth = doc.getStringUnitWidth(fifthText) * doc.getFontSize() / doc.internal.scaleFactor;
     const fifthTextX = (doc.internal.pageSize.getWidth() - fifthTextWidth) / 2;
 
     doc.text(fifthText, fifthTextX, 53);
 
-    this.tableDataEmpleados = dataPDFs.map((dataAlmacen: any, index: number) => {
+    this.tableDataEmpleados = dataPDFs.map((dataFarmacia: any, index: number) => {
       let data = [];
 
       if (index === 0) {
@@ -69,10 +69,10 @@ export class ReportesPdfService {
      
       data.push([
         { content: `${index + 1}` },
-        { content: `${dataAlmacen.codigoMedicamento}` },
-        { content: `${dataAlmacen.cantidadInicial}` },
-        { content: `${dataAlmacen.cantidadInicial - dataAlmacen.cantidad}` },
-        { content: `${dataAlmacen.cantidad}` },
+        { content: `${dataFarmacia.codigoMedicamento}` },
+        { content: `${dataFarmacia.cantidadInicial}` },
+        { content: `${dataFarmacia.cantidadInicial - dataFarmacia.cantidad}` },
+        { content: `${dataFarmacia.cantidad}` },
         
       ])
       return data;
@@ -90,7 +90,7 @@ export class ReportesPdfService {
       theme: 'grid',
       styles: { lineColor: 50, lineWidth: 0.3, fontSize: 7 },
       head: [[
-        { content: "Inventario Almacen", colSpan: 5, styles: { halign: 'center', fillColor: [255, 255, 255], textColor: [0, 0, 0] } }
+        { content: "Inventario Farmacia", colSpan: 5, styles: { halign: 'center', fillColor: [255, 255, 255], textColor: [0, 0, 0] } }
       ]],
       body: tableData.flat(),
       startY: 60,
