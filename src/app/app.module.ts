@@ -55,7 +55,8 @@ import { AlertasModule } from './components/alertas/alertas.module';
     AuthenticationModule,
     ComprasModule,
     PedidosModule,
-    AlertasModule
+    AlertasModule,
+    
   ],
   providers: [
     DatePipe,

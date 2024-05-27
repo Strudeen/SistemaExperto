@@ -1,18 +1,51 @@
+.container {
+  display: flex; /* Utiliza Flexbox */
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  min-width: 100vw;
+  min-height: 100vh;
+  background-color: #F5F5F5;
+  overflow: hidden;
+}
+
 .login-card {
-  max-width: 400px;
-  margin-top: 3em;
-  margin-bottom: auto;
-  margin-left: auto;
-  margin-right: auto;
+  border-radius: 10px;
+  max-width: 500px;
+  width: 100%; /* Ajusta el ancho al 100% del contenedor */
+  margin-top: 1em; /* Ajusta el margen superior si es necesario */
+  color: white;
+  background-color: #0069B6;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column; /* Asegura que el contenido del card se alinee en columna */
+}
+.container-logoABEN {
+  padding: 15px;
+  background-color: white;
+}
+.login-logo-aben {
+  display: block;
+  width: 100%; /* Ajusta el tamaño según tus necesidades */
+  height: 100px;
+  background-image: url("../../../../assets/imagenes/logoABEN.png");
+  background-size: contain; /* Asegura que toda la imagen se ajuste dentro del contenedor */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
+  background-position: center; /* Centra la imagen en el contenedor */
+}
 
-
-  padding: 20px;
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+.login-logo {
+  display: block;
+  margin: 0 auto;
+  width: 100px; /* Ajusta el tamaño según tus necesidades */
+  height: 100px;
+  background-image: url("../../../../assets/imagenes/logoCMNYR.png");
+  background-size: contain; /* Asegura que toda la imagen se ajuste dentro del contenedor */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
+  background-position: center; /* Centra la imagen en el contenedor */
 }
 
 .login-title {
   text-align: center;
-  color: #333;
   font-size: 24px;
   margin-bottom: 20px;
 }
@@ -25,21 +58,19 @@
 
 .form-field {
   width: 100%;
+  overflow: hidden; /* Para asegurarse de que el contenido se ajuste al borde redondeado */
+  background-color: #0069B6; /* Asegura que el fondo del campo sea blanco */
+}
+
+.mat-form-field-wrapper {
+  padding: 0; /* Elimina el padding interno si es necesario */
+}
+
+.input {
+  width: 100%;
 }
 
 .submit-button {
   margin-top: 16px;
-  background-color: #0072bb;
-  color: white;
-}
-
-/* General styles */
-mat-form-field {
-  width: 100%;
-  margin-bottom: 8px;
-}
-
-button {
-  margin-top: 8px;
-  background-color: #0072bb;
+  background-color: white;
 }

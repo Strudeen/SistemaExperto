@@ -4,12 +4,13 @@
 
 mat-sidenav-container{
     height: 100%;
+    background-color: #F5F5F5;
 }
 
 mat-sidenav{
     width: 18rem;
     border: none;
-    background-image: linear-gradient(to bottom, #0d2764, #162361, #1d1f5d, #231b59, #271655, #2a1352, #2d1050, #300d4d, #330b4b, #350a49, #380847, #3a0745);
+    background-color: #0069B6;
 }
 
 .sidenav-header{
@@ -31,11 +32,14 @@ mat-list-item{
 }
 
 mat-list-item:hover{
-    background-color: rgb(74,90,136);
+    background-color: rgba(221, 221, 221, 0.411);
     border-radius: .3em;
-    border:.1em solid rgb(135,144,175);
 }
 .white{
     color:#fff !important;
     text-decoration: none !important;
+}
+mat-expansion-panel{
+    color: white;
+    background-color: #0069B6 !important;
 }
