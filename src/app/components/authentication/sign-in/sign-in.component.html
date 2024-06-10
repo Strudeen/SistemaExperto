@@ -1,5 +1,4 @@
 <div class="container">
-
   <mat-card class="login-card">
     <div class="container-logoABEN">
       <div alt="Logo ABEN" class="login-logo-aben"></div>
@@ -20,6 +19,9 @@
           <mat-label>Contraseña</mat-label>
           <input class="input rounded-input" formControlName="password" autocomplete="new-password" matInput placeholder="Ingresa tu contraseña" type="password">
         </mat-form-field>
+
+        <!-- Mensaje de error -->
+        <div *ngIf="error" class="error-message">{{ error }}</div>
   
         <button mat-raised-button class="submit-button">Ingresar</button>
       </form>

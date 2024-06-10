@@ -1,21 +1,14 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { NgFor } from '@angular/common';
-import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CrearUsuario } from 'src/app/models/usuario';
 import { UsuarioService } from 'src/app/services/usuarios/usuario.service';
 import { RolService } from 'src/app/services/roles/rol.service';
-
-
-
+import { passwordValidator } from 'src/app/validators/password-validator';
 
 interface Sexo {
   value: string;
   viewValue: string;
 }
-
 
 @Component({
   selector: 'app-crear',
@@ -26,30 +19,29 @@ export class CrearComponent implements OnChanges, OnInit {
   @Input() currentId = '';
 
   roles: any[];
-
   sexos: Sexo[] = [
     { value: 'Masculino', viewValue: 'Masculino' },
-    { value: 'Femenino' , viewValue: 'Femenino' },
-
+    { value: 'Femenino', viewValue: 'Femenino' },
   ];
 
+  userForm: FormGroup;
 
-  public data: CrearUsuario = {
-    nombre: '',
-    apellido: '',
-    email: '',
-    password: '',
-    rol: '',
-    sexo: '',
-    ci: '',
-
-  };
   constructor(
+    private fb: FormBuilder,
     private rolesService: RolService,
     private usuarioService: UsuarioService,
+  ) { 
+    this.userForm = this.fb.group({
+      nombre: ['', Validators.required],
+      apellido: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      ci: ['', Validators.required],
+      rol: ['', Validators.required],
+      sexo: ['', Validators.required],
+      password: ['', [Validators.required, passwordValidator()]]
+    });
+  }
 
-  ) { }
-  
   ngOnInit() {
     this.rolesService.getRoles().subscribe(roles => {
       this.roles = roles;
@@ -57,61 +49,49 @@ export class CrearComponent implements OnChanges, OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    // Si el valor del currentId cambia, entonces listar con el id
-    console.log(this.currentId);
-    if (changes['currentId'].currentValue !== changes['currentId'].previousValue
+    if (changes['currentId'] && changes['currentId'].currentValue !== changes['currentId'].previousValue
       && this.currentId !== '') {
       this.usuarioService.getUsuario(this.currentId).subscribe((usuario) => {
         if (usuario) {
-          this.data.nombre = usuario.nombre;
-          this.data.apellido = usuario.apellido;
-          this.data.email = usuario.email;
-          this.data.password = usuario.password;
-          this.data.rol = usuario.rol;
-          this.data.sexo = usuario.sexo;
-          this.data.ci = usuario.ci;
+          this.userForm.patchValue({
+            nombre: usuario.nombre,
+            apellido: usuario.apellido,
+            email: usuario.email,
+            password: '',
+            rol: usuario.rol,
+            sexo: usuario.sexo,
+            ci: usuario.ci,
+          });
         }
-      })
+      });
     }
   }
 
-
   saveData() {
-    if (this.currentId) {
-      this.usuarioService.putUsuario(this.currentId, this.data).subscribe((resp) => {
-        if (resp) {
-          console.log(resp.msg);
-          this.currentId = '';
-          this.data = {
-            nombre: '',
-            apellido: '',
-            email: '',
-            password: '',
-            rol: '',
-            sexo: '',
-            ci: '',
-          };
-          this.usuarioService.updateTableData();
-        }
-      })
+    if (this.userForm.invalid) {
+      return;
     }
-    else {
-      this.usuarioService.postUsuario(this.data).subscribe((resp) => {
+
+    const formData = this.userForm.value;
+
+    if (this.currentId) {
+      this.usuarioService.putUsuario(this.currentId, formData).subscribe((resp) => {
         if (resp) {
           console.log(resp.msg);
           this.currentId = '';
-          this.data = {
-            nombre: '',
-            apellido: '',
-            email: '',
-            password: '',
-            rol: '',
-            sexo: '',
-            ci: '',
-          };
+          this.userForm.reset();
           this.usuarioService.updateTableData();
         }
-      })
+      });
+    } else {
+      this.usuarioService.postUsuario(formData).subscribe((resp) => {
+        if (resp) {
+          console.log(resp.msg);
+          this.currentId = '';
+          this.userForm.reset();
+          this.usuarioService.updateTableData();
+        }
+      });
     }
   }
 }
