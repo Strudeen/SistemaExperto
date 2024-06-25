@@ -1,15 +1,11 @@
 <mat-sidenav-container>
     <mat-sidenav [(opened)]='opened' mode="side">
         <mat-list>
-            <mat-list-item routerLinkActive="activebutton">
-                <mat-icon matListItemIcon class="white">account_circle</mat-icon>
-                <span matListItemLine class="white"> Joel Hugo</span>
-                <span matListItemLine class="white"> Huayhua Hinojosa</span>
-            </mat-list-item>
+  
 
             <mat-list-item routerLinkActive="activebutton">
                 <mat-icon matListItemIcon class="white">local_hospital</mat-icon>
-                <a matListItemLine class="white" routerLink="/">Inicio</a>
+                <a matListItemLine class="white" (click)="navigateTo('/institucion')">Inicio</a>
             </mat-list-item>
 
             <mat-list-item>

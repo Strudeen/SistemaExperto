@@ -32,63 +32,151 @@ export class CrearComponent implements OnChanges, OnInit {
 
   medicamentos: Medicamento[];
   roles: any[];
-  fileName = '';
-  fileName2 = '';
+  fileFactura = '';
+  fileRegistroSanitario = '';
+  fileCertificadoRepresentacion = '';
+  fileCertificadoEmpresa = '';
   show = false;
   laboratorios: Laboratorio[];
-  
+
 
   tipoCompras: string[] = ['MENOR', 'MAYOR'];
   formData = new FormData();
   formData2 = new FormData();
+  formData3 = new FormData();
+  formData4 = new FormData();
 
-  async onFileSelected(event: any) {
+
+  flagFactura = false;
+  flagRegistroSanitario = false;
+  flagCertificadoEmpresa = false;
+  flagCertificadoRepresentacion = false;
+
+
+
+  async onFileFactura(event: any, typeDocument: string) {
     const file: File = event.target.files[0];
 
     if (file) {
-      this.fileName = "Validando...";
+      this.fileFactura = 'Validando Factura...'
       this.formData.append("file", file);
       this.show = !this.show;
-      this.compraService.onFileSaved(this.formData).subscribe(async (m) => {
-        console.log(m)
-        
-        if (m) {
-          
-          this.data.documentos[0].fotoURL = "http://localhost:3000/api/file/" + m.file.id;
-          await this.ocrTest( this.data.documentos[0].fotoURL);
-          this.show = !this.show;
+      console.log(this.formData, 'FORMDATA');
+      this.motorInferenciaService.postFileValidation(this.formData, typeDocument).subscribe(async (m) => {
+        this.fileFactura = '';
+        m.message.forEach((message:any) => {
+          this.fileFactura += message + '\n';
+        });
+        const valido = m.message.find((m:any)=>m === 'El documento cuenta con la información correspondiente');
+
+        if(valido){
+          this.flagFactura = true;
         }
 
+        this.show = false;
+        this.formData = new FormData();
       });
     }
   }
-  async onFileSelected2(event: any) {
+
+  async onFileRegistroSanitario(event: any, typeDocument: string) {
     const file: File = event.target.files[0];
 
     if (file) {
-      this.fileName2 = "Validando...";
+      this.fileRegistroSanitario = 'Validando Registro Sanitario...'
       this.formData2.append("file", file);
       this.show = !this.show;
+      console.log(this.formData2, 'FORMDATA');
+      this.motorInferenciaService.postFileValidation(this.formData2, typeDocument).subscribe(async (m) => {
+        this.fileRegistroSanitario = '';
+        m.message.forEach((message:any) => {
+          this.fileRegistroSanitario += message + '\n';
+        });
+
+        const valido = m.message.find((m:any)=>m === 'El documento cuenta con la información correspondiente');
+        const validoSello = m.message.find((m:any)=>m === 'El documento cuenta con el sello valido de la AGEMED');
+        const validoFirma = m.message.find((m:any)=>m === 'Las firmas del documento han sido correctamente validadas');
+
+
+        if(valido && validoSello && validoFirma){
+          this.flagRegistroSanitario = true;
+        }
+
+        this.show = false;
+        this.formData2 = new FormData();
+      });
     }
-    this.compraService.onFileSaved(this.formData2).subscribe(async(m) => {
-
-      if (m) {
-        
-        this.data.documentos[1].fotoURL = "http://localhost:3000/api/file/" + m.file.id;
-        await this.ocrTest2( this.data.documentos[1].fotoURL);
-        this.show = !this.show;
-      }
-
-    });
   }
+
+  async onFileCertificadoEmpresa(event: any, typeDocument: string) {
+    const file: File = event.target.files[0];
+
+    if (file) {
+      this.fileCertificadoEmpresa = 'Validando Certificado de Empresa...'
+      this.formData3.append("file", file);
+      this.show = !this.show;
+      console.log(this.formData3, 'FORMDATA');
+      this.motorInferenciaService.postFileValidation(this.formData3, typeDocument).subscribe(async (m) => {
+        this.fileCertificadoEmpresa = '';
+        m.message.forEach((message:any) => {
+          this.fileCertificadoEmpresa += message + '\n';
+        });
+        
+        const valido = m.message.find((m:any)=>m === 'El documento cuenta con la información correspondiente');
+        const validoSello = m.message.find((m:any)=>m === 'El documento cuenta con el sello valido de la AGEMED');
+        const validoFirma = m.message.find((m:any)=>m === 'Las firmas del documento han sido correctamente validadas');
+
+
+        if(valido && validoSello && validoFirma){
+          this.flagCertificadoEmpresa = true;
+        }
+
+        this.show = false;
+        this.formData3 = new FormData();
+      });
+    }
+  }
+
+  async onFileRepresentacionLegal(event: any, typeDocument: string) {
+    const file: File = event.target.files[0];
+
+    if (file) {
+      this.fileCertificadoRepresentacion = 'Validando Certificado de Representación Legal...'
+      this.formData4.append("file", file);
+      this.show = !this.show;
+      console.log(this.formData4, 'FORMDATA');
+      this.motorInferenciaService.postFileValidation(this.formData4, typeDocument).subscribe(async (m) => {
+        this.fileCertificadoRepresentacion = '';
+        m.message.forEach((message:any) => {
+          this.fileCertificadoRepresentacion += message + '\n';
+        });
+
+        const valido = m.message.find((m:any)=>m === 'El documento cuenta con la información correspondiente');
+        const validoSello = m.message.find((m:any)=>m === 'El documento cuenta con el sello valido de la AGEMED');
+        const validoFirma = m.message.find((m:any)=>m === 'Las firmas del documento han sido correctamente validadas');
+
+
+        if(valido && validoSello && validoFirma){
+          this.flagCertificadoRepresentacion = true;
+        }
+
+        this.show = false;
+        this.formData4 = new FormData();
+      });
+    }
+  }
+
+
+
+
   public data: CompraForm = {
     tipo: "",
     fecha: "",
     nombreEmpresa: "",
     documentos: [{
-      fotoURL: ""
+      fotoURL: "0"
     }, {
-      fotoURL: ""
+      fotoURL: "0"
     }],
     medicamento: [{
       codigoMedicamento: "",
@@ -103,9 +191,9 @@ export class CrearComponent implements OnChanges, OnInit {
   constructor(
     private medicamentoService: MedicamentoService,
     private compraService: ComprasService,
-    private motorInferenciaService:MotorInferenciaService,
+    private motorInferenciaService: MotorInferenciaService,
     private laboratorioService: LaboratorioService,
-  ) { 
+  ) {
     this.today = new Date();
   }
 
@@ -150,9 +238,9 @@ export class CrearComponent implements OnChanges, OnInit {
           fecha: "",
           nombreEmpresa: "",
           documentos: [{
-            fotoURL: ""
+            fotoURL: "0"
           }, {
-            fotoURL: ""
+            fotoURL: "0"
           }],
           medicamento: [{
             codigoMedicamento: "",
@@ -167,40 +255,40 @@ export class CrearComponent implements OnChanges, OnInit {
       }
     });
   }
-  async ocrTest(url: string) {
-    const worker = await createWorker('spa');
-    const { data: { text } }: any = await worker.recognize(url);
-    console.log(text);
+  // async ocrTest(url: string) {
+  //   const worker = await createWorker('spa');
+  //   const { data: { text } }: any = await worker.recognize(url);
+  //   console.log(text);
 
-    const data:OCRFactura = {
-      texto:text,
-      fecha:this.data.fecha,
-      nombreEmpresa:this.data.nombreEmpresa
-    }
+  //   // const data:OCRFactura = {
+  //   //   texto:text,
+  //   //   fecha:this.data.fecha,
+  //   //   nombreEmpresa:this.data.nombreEmpresa
+  //   // }
 
-    this.motorInferenciaService.postOCRFacturas(data).subscribe(m =>{
-      if(m.isValid){
-        this.fileName = "Validado Correctamente";
-      }
-    });
-    await worker.terminate();
-  }
-  async ocrTest2(url: string) {
-    const worker = await createWorker('spa');
-    const { data: { text } }: any = await worker.recognize(url);
-    console.log(text);
+  //   // this.motorInferenciaService.postFileValidation(data).subscribe(m =>{
+  //   //   if(m.isValid){
+  //   //     this.fileName = "Validado Correctamente";
+  //   //   }
+  //   // });
+  //   await worker.terminate();
+  // }
+  // async ocrTest2(url: string) {
+  //   const worker = await createWorker('spa');
+  //   const { data: { text } }: any = await worker.recognize(url);
+  //   console.log(text);
 
-    const data: OCRCertificadoEmpresa = {
-      texto:text,
-      fecha:this.data.fecha,
-      nombreEmpresa:this.data.nombreEmpresa
-    }
+  //   const data: OCRCertificadoEmpresa = {
+  //     texto:text,
+  //     fecha:this.data.fecha,
+  //     nombreEmpresa:this.data.nombreEmpresa
+  //   }
 
-    this.motorInferenciaService.postOCRCertificadEmpresa(data).subscribe(m =>{
-      if(m.isValid){
-        this.fileName2 = "Validado Correctamente";
-      }
-    });
-    await worker.terminate();
-  }
+  //   this.motorInferenciaService.postOCRCertificadEmpresa(data).subscribe(m =>{
+  //     if(m.isValid){
+  //       this.fileName2 = "Validado Correctamente";
+  //     }
+  //   });
+  //   await worker.terminate();
+  // }
 }

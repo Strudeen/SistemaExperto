@@ -54,9 +54,6 @@
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
-
-
-
                   <mat-form-field class="formRowElement">
                     <mat-label>Laboratorio </mat-label>
                     <mat-select [(ngModel)]="medicamento.codigoLaboratorio">
@@ -80,25 +77,41 @@
             </div>
         </div>
         
-        <input type="file" class="file-input" (change)="onFileSelected($event)" #fileUpload>
+        <input type="file" class="file-input" (change)="onFileFactura($event, '1')" #fileUpload>
 
-        {{fileName || "Suba la Factura"}}
+        {{fileFactura || "Suba la Factura"}}
 
         <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
             <mat-icon>attach_file</mat-icon>
         </button>
       
-        <input type="file" class="file-input" (change)="onFileSelected2($event)" #fileUpload2>
+        <input type="file" class="file-input" (change)="onFileRegistroSanitario($event, '2')" #fileUpload2>
 
-        {{fileName2 || "Suba el Certificado de Empresa"}}
+        {{fileRegistroSanitario || "Suba el Registro Sanitario"}}
 
         <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload2.click()">
             <mat-icon>attach_file</mat-icon>
         </button>
+
+        <input type="file" class="file-input" (change)="onFileCertificadoEmpresa($event, '3')" #fileUpload3>
+
+        {{fileCertificadoEmpresa || "Suba el Certificado de Empresa"}}
+
+        <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload3.click()">
+            <mat-icon>attach_file</mat-icon>
+        </button>
+
+        <input type="file" class="file-input" (change)="onFileRepresentacionLegal($event, '4')" #fileUpload4>
+
+        {{fileCertificadoRepresentacion || "Suba el Certificado de Representación Legal"}}
+
+        <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload4.click()">
+            <mat-icon>attach_file</mat-icon>
+        </button> 
     </div>
     <div mat-dialog-actions>
         <mat-spinner *ngIf="show"></mat-spinner>
-        <button mat-button *ngIf="!show" (click)="saveData()" class="button-save">Guardar</button>
+        <button mat-button *ngIf=" flagFactura && flagRegistroSanitario && flagCertificadoEmpresa && flagCertificadoRepresentacion"  (click)="saveData()" class="button-save">Guardar</button>
     </div>
     
 </div>

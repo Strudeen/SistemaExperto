@@ -1,6 +1,5 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CrearUsuario } from 'src/app/models/usuario';
 import { UsuarioService } from 'src/app/services/usuarios/usuario.service';
 import { RolService } from 'src/app/services/roles/rol.service';
 import { passwordValidator } from 'src/app/validators/password-validator';
@@ -31,15 +30,7 @@ export class CrearComponent implements OnChanges, OnInit {
     private rolesService: RolService,
     private usuarioService: UsuarioService,
   ) { 
-    this.userForm = this.fb.group({
-      nombre: ['', Validators.required],
-      apellido: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      ci: ['', Validators.required],
-      rol: ['', Validators.required],
-      sexo: ['', Validators.required],
-      password: ['', [Validators.required, passwordValidator()]]
-    });
+    this.createForm();
   }
 
   ngOnInit() {
@@ -49,22 +40,45 @@ export class CrearComponent implements OnChanges, OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['currentId'] && changes['currentId'].currentValue !== changes['currentId'].previousValue
-      && this.currentId !== '') {
-      this.usuarioService.getUsuario(this.currentId).subscribe((usuario) => {
-        if (usuario) {
-          this.userForm.patchValue({
-            nombre: usuario.nombre,
-            apellido: usuario.apellido,
-            email: usuario.email,
-            password: '',
-            rol: usuario.rol,
-            sexo: usuario.sexo,
-            ci: usuario.ci,
-          });
-        }
-      });
+    if (changes['currentId'] && changes['currentId'].currentValue !== changes['currentId'].previousValue) {
+      if (this.currentId !== '') {
+        this.loadUsuarioData();
+      } else {
+        this.createForm();  // Reset form if no user is being edited
+      }
     }
+  }
+
+  private createForm() {
+    this.userForm = this.fb.group({
+      nombre: ['', Validators.required],
+      apellido: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      ci: ['', Validators.required],
+      rol: ['', Validators.required],
+      sexo: ['', Validators.required],
+      password: this.currentId ? [''] : ['', [Validators.required, passwordValidator()]]
+    });
+  }
+
+  private loadUsuarioData() {
+    this.usuarioService.getUsuario(this.currentId).subscribe((usuario) => {
+      if (usuario) {
+        this.userForm.patchValue({
+          nombre: usuario.nombre,
+          apellido: usuario.apellido,
+          email: usuario.email,
+          password: '',  // Leave password empty
+          rol: usuario.rol,
+          sexo: usuario.sexo,
+          ci: usuario.ci,
+        });
+
+        // Remove password requirement if editing
+        this.userForm.get('password')?.clearValidators();
+        this.userForm.get('password')?.updateValueAndValidity();
+      }
+    });
   }
 
   saveData() {
@@ -75,6 +89,7 @@ export class CrearComponent implements OnChanges, OnInit {
     const formData = this.userForm.value;
 
     if (this.currentId) {
+      // Update existing user
       this.usuarioService.putUsuario(this.currentId, formData).subscribe((resp) => {
         if (resp) {
           console.log(resp.msg);
@@ -84,6 +99,7 @@ export class CrearComponent implements OnChanges, OnInit {
         }
       });
     } else {
+      // Create new user
       this.usuarioService.postUsuario(formData).subscribe((resp) => {
         if (resp) {
           console.log(resp.msg);

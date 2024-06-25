@@ -1,0 +1,58 @@
+<div class="header-section"></div>
+
+<div *ngIf="institucion" class="institucion-detalles-container">
+  <mat-card class="institucion-detalles">
+    <mat-card-header>
+      <mat-card-title>{{ institucion.institucionNombre }}</mat-card-title>
+      <mat-card-subtitle>{{ institucion.institucionPrincipal }}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <div class="detalles-seccion">
+        <h4>Detalles:</h4>
+        <p>{{ institucion.institucionDetalles }}</p>
+
+        <h4>Descripción:</h4>
+        <p>{{ institucion.institucionDescripcion }}</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card class="contacto-seccion">
+    <mat-card-content>
+      <h4>Información de Contacto:</h4>
+      <p>
+        <mat-icon color="primary" aria-hidden="false" aria-label="dirección">location_on</mat-icon>
+        <strong>Dirección:</strong> {{ institucion.institucionDireccion }}
+      </p>
+      <p>
+        <mat-icon color="primary" aria-hidden="false" aria-label="NIT">business</mat-icon>
+        <strong>NIT:</strong> {{ institucion.institucionNit }}
+      </p>
+      <p>
+        <mat-icon color="primary" aria-hidden="false" aria-label="Email">email</mat-icon>
+        <strong>Email:</strong> {{ institucion.institucionEmail }}
+      </p>
+      <p>
+        <mat-icon color="primary" aria-hidden="false" aria-label="Fax">print</mat-icon>
+        <strong>Fax:</strong> {{ institucion.institucionFax }}
+      </p>
+      <p>
+        <mat-icon color="primary" aria-hidden="false" aria-label="Teléfono">phone</mat-icon>
+        <strong>Teléfono:</strong> {{ institucion.institucionTelefono }}
+      </p>
+      <p>
+        <mat-icon color="primary" aria-hidden="false" aria-label="Celular">smartphone</mat-icon>
+        <strong>Celular:</strong> {{ institucion.institucionCelular }}
+      </p>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="edit-button">
+    <button mat-raised-button color="primary" (click)="editInstitucion()">Editar</button>
+  </div>
+</div>
+
+<div *ngIf="!institucion">
+  <p>Cargando datos de la institución...</p>
+</div>

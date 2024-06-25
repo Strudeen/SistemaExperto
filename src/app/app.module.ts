@@ -29,12 +29,14 @@ import { AuthenticationModule } from './components/authentication/authentication
 import { ComprasModule } from './components/compras/compras.module';
 import { PedidosModule } from './components/pedidos/pedidos.module';
 import { AlertasModule } from './components/alertas/alertas.module';
+import { InstitucionComponent } from './components/institucion/institucion/institucion.component';
+import { InstitucionModule } from './components/institucion/institucion.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     MenuComponent,
-    ArchivosComponent
+    ArchivosComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,6 +58,7 @@ import { AlertasModule } from './components/alertas/alertas.module';
     ComprasModule,
     PedidosModule,
     AlertasModule,
+    InstitucionModule,
     
   ],
   providers: [

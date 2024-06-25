@@ -17,7 +17,7 @@ export class SignInComponent implements OnInit {
   error: string = '';
   submitted: boolean = false;
   emailControl = new FormControl('jhuayhuah@aben.gob.bo', [Validators.required, Validators.email]);
-  passwordControl = new FormControl('123456aben', [Validators.required]);
+  passwordControl = new FormControl('Hola123!', [Validators.required]);
   loginForm = new FormGroup({
     email: this.emailControl,
     password: this.passwordControl,
@@ -57,7 +57,7 @@ export class SignInComponent implements OnInit {
             this.mostrarAlerta();
           }
 
-          this.router.navigate(['/']);
+          this.router.navigate(['/institucion']);
         },
         error: (error) => {
           this.error = error; // Set the error message

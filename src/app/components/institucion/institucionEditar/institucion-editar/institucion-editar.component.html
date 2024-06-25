@@ -1,0 +1,62 @@
+<div class="header-section"></div>
+
+<div *ngIf="institucion" class="edit-institucion-form">
+  <h2>Editar Institución</h2>
+  <form [formGroup]="editInstitucionForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>Nombre</mat-label>
+      <input matInput id="institucionNombre" formControlName="institucionNombre" type="text">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Principal</mat-label>
+      <input matInput id="institucionPrincipal" formControlName="institucionPrincipal" type="text">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Detalles</mat-label>
+      <textarea matInput id="institucionDetalles" formControlName="institucionDetalles"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Descripción</mat-label>
+      <textarea matInput id="institucionDescripcion" formControlName="institucionDescripcion"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Dirección</mat-label>
+      <input matInput id="institucionDireccion" formControlName="institucionDireccion" type="text">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>NIT</mat-label>
+      <input matInput id="institucionNit" formControlName="institucionNit" type="text">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput id="institucionEmail" formControlName="institucionEmail" type="email">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Fax</mat-label>
+      <input matInput id="institucionFax" formControlName="institucionFax" type="text">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Teléfono</mat-label>
+      <input matInput id="institucionTelefono" formControlName="institucionTelefono" type="text">
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Celular</mat-label>
+      <input matInput id="institucionCelular" formControlName="institucionCelular" type="text">
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="!editInstitucionForm.valid">Guardar Cambios</button>
+  </form>
+</div>
+
+<div *ngIf="!institucion">
+  <p>Cargando datos de la institución...</p>
+</div>

@@ -28,7 +28,7 @@ export class UsuarioService {
 
     return this.http.post<any>(url, CrearUsuario);
   }
-  
+
   getUsuario(usuarioId: string): Observable<Usuario> {
     const url = `http://localhost:3000/api/usuario/${usuarioId}`;
     return this.http.get<Usuario>(url);
@@ -36,11 +36,17 @@ export class UsuarioService {
 
   putUsuario(usuarioId: string, updatedUsuarioData: CrearUsuario): Observable<any> {
     const url = `http://localhost:3000/api/usuario/${usuarioId}`;
-    return this.http.put(url, updatedUsuarioData); 
+    return this.http.put(url, updatedUsuarioData);
   }
 
-  delUsuario(usuarioId: string, state:boolean): Observable<any> {
+  delUsuario(usuarioId: string, state: boolean): Observable<any> {
     const url = `http://localhost:3000/api/usuario/${usuarioId}/delUsuario`;
-    return this.http.put(url, {state}); 
+    return this.http.put(url, { state });
   }
+
+  putPassword(usuarioId: string, newPassword: string): Observable<any> {
+    const url = `http://localhost:3000/api/usuario/${usuarioId}/password`;
+    return this.http.put(url, { password: newPassword });
+  }
+
 }

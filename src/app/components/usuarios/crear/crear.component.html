@@ -1,75 +1,78 @@
 <div class="formUsuarios">
-    <h1 mat-dialog-title>Agregar | Modificar Usuarios</h1>
-    <form [formGroup]="userForm" (ngSubmit)="saveData()">
-      <div mat-dialog-content>
-        <mat-form-field [ngClass]="{'mat-form-field-invalid': userForm.get('ci')?.invalid && (userForm.get('ci')?.touched || userForm.get('ci')?.dirty)}">
-          <mat-label>Carnet de Identidad</mat-label>
-          <input matInput formControlName="ci">
-          <mat-error *ngIf="userForm.get('ci')?.invalid && (userForm.get('ci')?.touched || userForm.get('ci')?.dirty)">
-            Carnet de Identidad es requerido.
-          </mat-error>
-        </mat-form-field>
-  
-        <mat-form-field [ngClass]="{'mat-form-field-invalid': userForm.get('nombre')?.invalid && (userForm.get('nombre')?.touched || userForm.get('nombre')?.dirty)}">
-          <mat-label>Nombre</mat-label>
-          <input matInput formControlName="nombre">
-          <mat-error *ngIf="userForm.get('nombre')?.invalid && (userForm.get('nombre')?.touched || userForm.get('nombre')?.dirty)">
-            Nombre es requerido.
-          </mat-error>
-        </mat-form-field>
-  
-        <mat-form-field [ngClass]="{'mat-form-field-invalid': userForm.get('apellido')?.invalid && (userForm.get('apellido')?.touched || userForm.get('apellido')?.dirty)}">
-          <mat-label>Apellido</mat-label>
-          <input matInput formControlName="apellido">
-          <mat-error *ngIf="userForm.get('apellido')?.invalid && (userForm.get('apellido')?.touched || userForm.get('apellido')?.dirty)">
-            Apellido es requerido.
-          </mat-error>
-        </mat-form-field>
-  
-        <mat-form-field [ngClass]="{'mat-form-field-invalid': userForm.get('email')?.invalid && (userForm.get('email')?.touched || userForm.get('email')?.dirty)}">
-          <mat-label>Email</mat-label>
-          <input autocomplete="new-password" type="email" matInput formControlName="email">
-          <mat-error *ngIf="userForm.get('email')?.invalid && (userForm.get('email')?.touched || userForm.get('email')?.dirty)">
-            Email es requerido y debe ser válido.
-          </mat-error>
-        </mat-form-field>
-  
-        <mat-form-field *ngIf="currentId === ''" [ngClass]="{'mat-form-field-invalid': userForm.get('password')?.invalid && (userForm.get('password')?.touched || userForm.get('password')?.dirty)}">
-          <mat-label>Password</mat-label>
-          <input autocomplete="new-password" type="password" matInput formControlName="password">
-          <mat-error *ngIf="userForm.get('password')?.hasError('passwordStrength') && (userForm.get('password')?.touched || userForm.get('password')?.dirty)">
-            La contraseña debe tener entre 8 y 12 caracteres, incluyendo al menos una letra mayúscula, una letra minúscula, un número y un carácter especial.
-          </mat-error>
-          <mat-error *ngIf="userForm.get('password')?.hasError('required') && (userForm.get('password')?.touched || userForm.get('password')?.dirty)">
-            Password es requerido.
-          </mat-error>
-        </mat-form-field>
-  
-        <mat-form-field [ngClass]="{'mat-form-field-invalid': userForm.get('rol')?.invalid && (userForm.get('rol')?.touched || userForm.get('rol')?.dirty)}">
-          <mat-label>Rol</mat-label>
-          <mat-select formControlName="rol">
-            <mat-option *ngFor="let rol of roles" [value]="rol.nombre">{{ rol.nombre }}</mat-option>
-          </mat-select>
-          <mat-error *ngIf="userForm.get('rol')?.invalid && (userForm.get('rol')?.touched || userForm.get('rol')?.dirty)">
-            Rol es requerido.
-          </mat-error>
-        </mat-form-field>
-  
-        <mat-form-field [ngClass]="{'mat-form-field-invalid': userForm.get('sexo')?.invalid && (userForm.get('sexo')?.touched || userForm.get('sexo')?.dirty)}">
-          <mat-label>Sexo</mat-label>
-          <mat-select formControlName="sexo">
-            <mat-option *ngFor="let sexo of sexos" [value]="sexo.value">
-              {{sexo.viewValue}}
-            </mat-option>
-          </mat-select>
-          <mat-error *ngIf="userForm.get('sexo')?.invalid && (userForm.get('sexo')?.touched || userForm.get('sexo')?.dirty)">
-            Sexo es requerido.
-          </mat-error>
-        </mat-form-field>
-      </div>
-      <div mat-dialog-actions>
-        <button mat-button type="submit" class="button-save" [disabled]="userForm.invalid">Guardar</button>
-      </div>
-    </form>
-  </div>
-  
+  <h1 mat-dialog-title>{{ currentId ? 'Modificar Usuario' : 'Agregar Usuario' }}</h1>
+  <form [formGroup]="userForm" (ngSubmit)="saveData()">
+    <div mat-dialog-content>
+      <!-- Campos del formulario -->
+
+      <mat-form-field [ngClass]="{'mat-form-field-invalid': userForm.get('ci')?.invalid && (userForm.get('ci')?.touched || userForm.get('ci')?.dirty)}">
+        <mat-label>Carnet de Identidad</mat-label>
+        <input matInput formControlName="ci">
+        <mat-error *ngIf="userForm.get('ci')?.invalid && (userForm.get('ci')?.touched || userForm.get('ci')?.dirty)">
+          Carnet de Identidad es requerido.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field [ngClass]="{'mat-form-field-invalid': userForm.get('nombre')?.invalid && (userForm.get('nombre')?.touched || userForm.get('nombre')?.dirty)}">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="nombre">
+        <mat-error *ngIf="userForm.get('nombre')?.invalid && (userForm.get('nombre')?.touched || userForm.get('nombre')?.dirty)">
+          Nombre es requerido.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field [ngClass]="{'mat-form-field-invalid': userForm.get('apellido')?.invalid && (userForm.get('apellido')?.touched || userForm.get('apellido')?.dirty)}">
+        <mat-label>Apellido</mat-label>
+        <input matInput formControlName="apellido">
+        <mat-error *ngIf="userForm.get('apellido')?.invalid && (userForm.get('apellido')?.touched || userForm.get('apellido')?.dirty)">
+          Apellido es requerido.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field [ngClass]="{'mat-form-field-invalid': userForm.get('email')?.invalid && (userForm.get('email')?.touched || userForm.get('email')?.dirty)}">
+        <mat-label>Email</mat-label>
+        <input autocomplete="new-password" type="email" matInput formControlName="email">
+        <mat-error *ngIf="userForm.get('email')?.invalid && (userForm.get('email')?.touched || userForm.get('email')?.dirty)">
+          Email es requerido y debe ser válido.
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Mostrar el campo de contraseña solo al crear un usuario -->
+      <mat-form-field *ngIf="!currentId" [ngClass]="{'mat-form-field-invalid': userForm.get('password')?.invalid && (userForm.get('password')?.touched || userForm.get('password')?.dirty)}">
+        <mat-label>Password</mat-label>
+        <input autocomplete="new-password" type="password" matInput formControlName="password">
+        <mat-error *ngIf="userForm.get('password')?.hasError('passwordStrength') && (userForm.get('password')?.touched || userForm.get('password')?.dirty)">
+          La contraseña debe tener entre 8 y 12 caracteres, incluyendo al menos una letra mayúscula, una letra minúscula, un número y un carácter especial.
+        </mat-error>
+        <mat-error *ngIf="userForm.get('password')?.hasError('required') && (userForm.get('password')?.touched || userForm.get('password')?.dirty)">
+          Password es requerido.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field [ngClass]="{'mat-form-field-invalid': userForm.get('rol')?.invalid && (userForm.get('rol')?.touched || userForm.get('rol')?.dirty)}">
+        <mat-label>Rol</mat-label>
+        <mat-select formControlName="rol">
+          <mat-option *ngFor="let rol of roles" [value]="rol.nombre">{{ rol.nombre }}</mat-option>
+        </mat-select>
+        <mat-error *ngIf="userForm.get('rol')?.invalid && (userForm.get('rol')?.touched || userForm.get('rol')?.dirty)">
+          Rol es requerido.
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field [ngClass]="{'mat-form-field-invalid': userForm.get('sexo')?.invalid && (userForm.get('sexo')?.touched || userForm.get('sexo')?.dirty)}">
+        <mat-label>Sexo</mat-label>
+        <mat-select formControlName="sexo">
+          <mat-option *ngFor="let sexo of sexos" [value]="sexo.value">
+            {{sexo.viewValue}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="userForm.get('sexo')?.invalid && (userForm.get('sexo')?.touched || userForm.get('sexo')?.dirty)">
+          Sexo es requerido.
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div mat-dialog-actions>
+      <button mat-button type="submit" class="button-save" [disabled]="userForm.invalid">Guardar</button>
+    </div>
+  </form>
+</div>

@@ -10,10 +10,10 @@ import { OCRCertificadoEmpresa, OCRFactura } from 'src/app/models/ocr';
 export class MotorInferenciaService {  
   constructor(private http: HttpClient) { }
 
-  postOCRFacturas(facturaOCR: OCRFactura): Observable<any> {
-    console.log(facturaOCR);
-    let url = "http://localhost:3000/api/motorDeInferencia";
-    return this.http.post<any>(url, facturaOCR);
+  postFileValidation(formData: FormData, typeDocument: string): Observable<any> {
+    console.log(formData);
+    let url = `http://localhost:3000/api/file/upload/${typeDocument}`;
+    return this.http.post<any>(url, formData);
   }
   postOCRCertificadEmpresa(empresaOCR: OCRCertificadoEmpresa): Observable<any> {
     console.log(empresaOCR);

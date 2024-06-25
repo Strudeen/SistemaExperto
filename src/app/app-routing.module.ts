@@ -20,6 +20,7 @@ const routes: Routes = [
     {path: 'recetas',canActivate: [authGuard], loadChildren: () => import('./components/recetas/recetas-routing.module').then(m => m.RecetasRoutingModule)},
     {path: 'compras',canActivate: [authGuard], loadChildren: () => import('./components/compras/compras-routing.module').then(m => m.ComprasRoutingModule)},
     {path: 'pedidos',canActivate: [authGuard], loadChildren: () => import('./components/pedidos/pedidos-routing.module').then(m => m.PedidosRoutingModule)},
+    {path: 'institucion',canActivate: [authGuard], loadChildren: () => import('./components/institucion/institucion-routing.module').then(m => m.InstitucionRoutingModule)},
    
   ]},
   {path: 'authentication', loadChildren: () => import('./components/authentication/authentication-routing.module').then(m => m.AuthenticationRoutingModule)},

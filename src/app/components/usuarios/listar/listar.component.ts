@@ -7,6 +7,7 @@ import { Subscription } from 'rxjs';
 import { Usuario } from 'src/app/models/usuario';
 import { CrearComponent } from '../crear/crear.component';
 import { UsuarioService } from 'src/app/services/usuarios/usuario.service';
+import { CambiarPasswordDialogComponent } from '../passwordDialog/cambiar-password-dialog/cambiar-password-dialog.component';
 
 @Component({
   selector: 'app-listar',
@@ -64,7 +65,7 @@ export class ListarComponent  implements AfterViewInit, OnDestroy {
 
 
   ocultarPassword(){
-    this.showPassword = false;
+    this.showPassword = false;  
   }
 
   eliminarUsuario(usuarioId: string, state: boolean) {
@@ -76,6 +77,19 @@ export class ListarComponent  implements AfterViewInit, OnDestroy {
       }
     });
   }
+  openChangePasswordDialog(usuarioId: string) {
+    const dialogRef = this.dialog.open(CambiarPasswordDialogComponent, {
+      width: '400px',
+      data: { usuarioId: usuarioId }
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        console.log('Contraseña cambiada exitosamente');
+      } else {
+        console.log('Cambio de contraseña cancelado');
+      }
+    });
+  }
 
 }
